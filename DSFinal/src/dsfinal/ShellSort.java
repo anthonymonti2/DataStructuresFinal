@@ -19,6 +19,31 @@ public class ShellSort<T> extends SortingUtils<T> {
     public void sort()
     {
         
+        int h = 0;
+        
+        for(int i = 0; i < array.length; i++)
+        {
+            h = h * 3 + 1;
+        }
+        
+        while(h > 0)
+        {
+            for(int outter = h; outter < array.length; outter++)
+            {
+                T valueToInsert = array[outter];
+                int inner = outter;
+
+                //while (inner > interval - 1 && array[inner - interval] >= valueToInsert)
+                //{
+
+                //}
+            }
+        }
+    }
+    
+    public void run()
+    {
+        super.run();
     }
     
     
