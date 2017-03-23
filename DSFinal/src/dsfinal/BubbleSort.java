@@ -1,4 +1,4 @@
-            /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,23 +9,23 @@ package dsfinal;
  *
  * @author Anthony
  */
-public class InsertionSort extends SortingUtils implements Runnable {
+public class BubbleSort extends SortingUtils implements Runnable {
     
-    public InsertionSort(int[] array)
+    public BubbleSort(int[] array)
     {
-        super(array, "Insertion Sort");
+        super(array,"Bubble Sort");
     }
     
-    @Override
+    @Override 
     public void sort()
     {
-        for(int i = 0; i < array.length-1; i++)
+        for(int i = 0; i < array.length; i++) //go through every element
         {
-            for(int q = i+1; q > 0; q--)
+            for(int q = 0; q < array.length-1; q++) //go through remaining elements
             {
-                if(array[q] < array[q-1])
+                if(array[q] > array[q+1])
                 {
-                    swap(q-1,q);
+                    swap(q, q+1);
                 }
             }
         }
