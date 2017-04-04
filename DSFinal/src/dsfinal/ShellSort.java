@@ -45,7 +45,6 @@ public class ShellSort extends SortingUtils {
     public void run()
     {
         super.run();
-        System.out.println(super.toString());
     }
     
     

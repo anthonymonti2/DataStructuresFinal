@@ -5,57 +5,71 @@
 
 http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/
 
+Do To
+counting sort
+comb sort
+bucket sort
+radix sort
+odd even sort
+gnome sort
+cocktail shaker sort
+smooth sort
+intro sort
+
+done
+shell sort
+
  */
 package dsfinal;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+
 /**
  *
  * @author Anthony
  */
 public class FinalProjectNB {
     
+    final static String[] sortOptions = {"","Bubble","Heap","Insertion","Merge","Quick","Selection","Shell"};
+    
     public static void main(String[] args) throws InterruptedException {
         
         Scanner sc = new Scanner(System.in);
         
         ArrayList<Thread> sorts = new ArrayList<>();
-        ArrayList<String> finishedSorts = new ArrayList<>();
-        
-        System.out.println("Please enter the number of integers you want to sort");
-        int MAXNUM = sc.nextInt();
-        int[] toBeSorted = new int[MAXNUM];
-        
-        System.out.println("Ready?");
-        
-        
-        System.out.println("\nGenerating random array of " + MAXNUM + " integers");
-        for(int i = 0; i < MAXNUM; i++)
-        {
-            toBeSorted[i] = (int)(Math.random() * MAXNUM);
-        }
-         System.out.println("Done generating array");
 
-        //Create new threads for each sorting alorithm
-        //simple sorts
-        //Runnable selectionRunnable = new SelectionSort(toBeSorted);
-        //sorts.add(new Thread(selectionRunnable, "Selection Sort"));
-        //Runnable bubbleRunnable = new BubbleSort(toBeSorted);
-        //sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
-        //Runnable insertionRunnable = new InsertionSort(toBeSorted);
-        //sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
-        Runnable shellRunnable = new ShellSort(toBeSorted, "Shell Sort");
-        sorts.add(new Thread(shellRunnable, "Shell Sort"));
+        System.out.println("Please enter the number of integers you want to sort");
+        System.out.println("Large number (> 100,000) take a long time. Be aware");
+        int MAXNUM = sc.nextInt();
         
+        System.out.println("What type of array would you like to sort");
+        System.out.println("1.)Random\n2.)Almost Sorted\n3.)Backwards\n4.)Few Unique\n");
+        int arrayType = sc.nextInt();
         
-        //Complex sorts
-        //Runnable mergeRunnable = new MergeSort(toBeSorted);
-        //sorts.add(new Thread(mergeRunnable, "Merge Sort"));
-        //Runnable quickRunnable = new QuickSort(toBeSorted);
-        //sorts.add(new Thread(quickRunnable, "Quick Sort"));
-        //Runnable heapRunnable = new HeapSort(toBeSorted);
-        //sorts.add(new Thread(heapRunnable, "Heap Sort"));
+        int[] toBeSorted = generateArray(arrayType,MAXNUM);
         
+        System.out.println("\nWhich sorts would you like to compare times for?");
+        System.out.println(createListString(sortOptions));
+        System.out.println("If your number of ints to be sorted if very large (> 100,000)\n"
+                          +"selecting more than 4 sorts will cause massive slow downs\n"
+                          +"but will still work. Be aware");
+        System.out.println("Enter each number with a comma between the numbers");
+        
+        sc.nextLine(); //reset scanner
+        
+        StringTokenizer st = new StringTokenizer(sc.nextLine(),",");
+        
+        while(st.hasMoreElements())
+        {
+            try
+            {
+                int num = Integer.valueOf(st.nextToken());
+                getSort(num,sorts,toBeSorted);
+            }
+            catch(Exception e){}
+        }
+
         System.out.println("\nQuickest Sorts\n");
         
         long startTime = System.nanoTime();
@@ -63,8 +77,6 @@ public class FinalProjectNB {
         sorts.forEach((t) -> {
             t.start();
         });
-
-        //int count = 1;
         
         while(!sorts.isEmpty())
         {
@@ -72,33 +84,15 @@ public class FinalProjectNB {
             {
                 if(!sorts.get(i).isAlive())
                 {
-                    //finishedSorts.add(sorts.get(i).getName() + " , " + (System.nanoTime() - startTime) / Math.pow(10,9));
-                    //System.out.println(count + "). " + sorts.get(i).getName() + " : " + (System.nanoTime() - startTime) / Math.pow(10,9));
                     sorts.remove(i);
-                    //count++;
                 }
             }
         }
         
         System.out.println("\nDone sorting all");
         long stopTime = System.nanoTime();
-        //System.out.println("Elapsed time in seconds : " + (stopTime - startTime));
         
-        
-        
-        //for(String str : finishedSorts)
-        //{
-        //    System.out.println(str);
-        //}
         System.out.println("Elapsed time in seconds : " + (stopTime - startTime) / Math.pow(10,9));
-        //t1.join();
-        //t1.setName("SelectionSort");
-        //System.out.println(t1.getName());
-        
-        //System.out.println(selectionRunnable.toString());
-        
-        
-        
     }
     
     public static String printArray(int [] array)
@@ -111,4 +105,100 @@ public class FinalProjectNB {
         return str;
     }
     
+    public static void getSort(int toFind, ArrayList<Thread> arrayList, int[] toBeSorted)
+    {
+        switch(toFind)
+        {
+            case 6:
+                Runnable selectionRunnable = new SelectionSort(toBeSorted);
+                arrayList.add(new Thread(selectionRunnable, "Selection Sort"));
+                break;
+            case 1:
+                Runnable bubbleRunnable = new BubbleSort(toBeSorted);
+                arrayList.add(new Thread(bubbleRunnable, "Bubble Sort"));
+                break;
+            case 3:
+                Runnable insertionRunnable = new InsertionSort(toBeSorted);
+                arrayList.add(new Thread(insertionRunnable, "Insertion Sort"));
+                break;
+            case 7:    
+                Runnable shellRunnable = new ShellSort(toBeSorted, "Shell Sort");
+                arrayList.add(new Thread(shellRunnable, "Shell Sort"));
+                break;
+            case 4:    
+                Runnable mergeRunnable = new MergeSort(toBeSorted);
+                arrayList.add(new Thread(mergeRunnable, "Merge Sort"));
+            case 5:    
+                Runnable quickRunnable = new QuickSort(toBeSorted);
+                arrayList.add(new Thread(quickRunnable, "Quick Sort"));
+                break;
+            case 2:    
+                Runnable heapRunnable = new HeapSort(toBeSorted);
+                arrayList.add(new Thread(heapRunnable, "Heap Sort"));
+                break;
+        }
+    }
+    
+    public static String createListString(String[] array)
+    {
+        String str = "";
+        for(int i = 1; i < array.length; i++)
+        {
+            str += i + ".)" + array[i] + " ";
+            if(i % 1 == 0)
+            {
+                str += "\n";
+            }
+        }
+        
+        return str;
+    }
+    
+    public static int[] generateArray(int type, int max)
+    {
+        int[] tBSort = new int[max];
+        switch(type)
+        {
+            case 1: 
+                //random
+                System.out.println("\nGenerating random array of " + max + " integers");
+                for(int i = 0; i < max; i++)
+                {
+                    tBSort[i] = (int)(Math.random() * max);
+                }
+                break;
+            case 2:
+                //backwards
+                System.out.println("\nGenerating backwards array of " + max + " integers");
+                for(int i = 0; i < max; i++)
+                {
+                    tBSort[max-i] = i;
+                }
+                break;
+            case 3:
+                //almost sorted
+                System.out.println("\nGenerating almost sorted array of " + max + " integers");
+                for(int i = 0; i < (double)(max * .75) ; i++)
+                {
+                    tBSort[i] = i;
+                }
+                for(int i = 0; i < max/4; i++)
+                {
+                    tBSort[i] = (int)(Math.random() * max);
+                }
+                break;
+            case 4:
+                //few unique
+                for(int i = 0; i < 5; i++)
+                {
+                    for(int q = 0; q < max/5; q++)
+                    {
+                        //doesn't work yet...
+                    }
+                }
+                break;
+        }
+        
+        return tBSort;
+    }
 }
