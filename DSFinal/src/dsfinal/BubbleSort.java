@@ -9,7 +9,7 @@ package dsfinal;
  *
  * @author Anthony
  */
-public class BubbleSort extends SortingUtils implements Runnable {
+public class BubbleSort extends SortingUtils {
     
     public BubbleSort(int[] array)
     {

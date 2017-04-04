@@ -9,7 +9,7 @@ package dsfinal;
  *
  * @author Anthony
  */
-public class MergeSort extends SortingUtils implements Runnable {
+public class MergeSort extends SortingUtils {
     
     public MergeSort(int[] array)
     {

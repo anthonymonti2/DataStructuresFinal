@@ -9,7 +9,7 @@ package dsfinal;
  *
  * @author Anthony
  */
-public class HeapSort extends SortingUtils implements  Runnable{
+public class HeapSort extends SortingUtils {
     
     public HeapSort(int[] array)
     {

@@ -9,7 +9,7 @@ package dsfinal;
  *
  * @author Anthony
  */
-public class QuickSort extends SortingUtils implements Runnable {
+public class QuickSort extends SortingUtils {
     
     public QuickSort(int[] array)
     {

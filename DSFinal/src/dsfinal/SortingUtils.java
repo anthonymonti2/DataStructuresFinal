@@ -5,13 +5,13 @@
  */
 package dsfinal;
 
-import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
+//import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
 
 /**
  *
  * @author Anthony
  */
-public abstract class SortingUtils {
+public abstract class SortingUtils implements Runnable {
     protected int[] array;
     protected long swaps;
     private long startTime;
@@ -52,5 +52,4 @@ public abstract class SortingUtils {
         str += "\nNumber of swaps = " + swaps;
         return str;
     }
-    
 }

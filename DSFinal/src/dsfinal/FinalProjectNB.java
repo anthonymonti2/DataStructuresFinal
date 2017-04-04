@@ -8,52 +8,61 @@ http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-
  */
 package dsfinal;
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  *
  * @author Anthony
  */
 public class FinalProjectNB {
     
-    final static int MAXNUM = 1000000;
-    
     public static void main(String[] args) throws InterruptedException {
         
-        int[] toBeSorted = new int[MAXNUM];
+        Scanner sc = new Scanner(System.in);
+        
         ArrayList<Thread> sorts = new ArrayList<>();
         ArrayList<String> finishedSorts = new ArrayList<>();
         
-        System.out.println("Generating random array of " + MAXNUM + " integers");
+        System.out.println("Please enter the number of integers you want to sort");
+        int MAXNUM = sc.nextInt();
+        int[] toBeSorted = new int[MAXNUM];
+        
+        System.out.println("Ready?");
+        
+        
+        System.out.println("\nGenerating random array of " + MAXNUM + " integers");
         for(int i = 0; i < MAXNUM; i++)
         {
             toBeSorted[i] = (int)(Math.random() * MAXNUM);
         }
          System.out.println("Done generating array");
-        
+
         //Create new threads for each sorting alorithm
         //simple sorts
-        Runnable selectionRunnable = new SelectionSort(toBeSorted);
-        sorts.add(new Thread(selectionRunnable, "Selection Sort"));
-        Runnable bubbleRunnable = new BubbleSort(toBeSorted);
-        sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
-        Runnable insertionRunnable = new InsertionSort(toBeSorted);
-        sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
+        //Runnable selectionRunnable = new SelectionSort(toBeSorted);
+        //sorts.add(new Thread(selectionRunnable, "Selection Sort"));
+        //Runnable bubbleRunnable = new BubbleSort(toBeSorted);
+        //sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
+        //Runnable insertionRunnable = new InsertionSort(toBeSorted);
+        //sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
+        Runnable shellRunnable = new ShellSort(toBeSorted, "Shell Sort");
+        sorts.add(new Thread(shellRunnable, "Shell Sort"));
+        
         
         //Complex sorts
-        Runnable mergeRunnable = new MergeSort(toBeSorted);
-        sorts.add(new Thread(mergeRunnable, "Merge Sort"));
-        Runnable quickRunnable = new QuickSort(toBeSorted);
-        sorts.add(new Thread(quickRunnable, "Quick Sort"));
-        Runnable heapRunnable = new HeapSort(toBeSorted);
-        sorts.add(new Thread(heapRunnable, "Heap Sort"));
+        //Runnable mergeRunnable = new MergeSort(toBeSorted);
+        //sorts.add(new Thread(mergeRunnable, "Merge Sort"));
+        //Runnable quickRunnable = new QuickSort(toBeSorted);
+        //sorts.add(new Thread(quickRunnable, "Quick Sort"));
+        //Runnable heapRunnable = new HeapSort(toBeSorted);
+        //sorts.add(new Thread(heapRunnable, "Heap Sort"));
         
         System.out.println("\nQuickest Sorts\n");
         
         long startTime = System.nanoTime();
         
-        for(Thread t : sorts)
-        {
+        sorts.forEach((t) -> {
             t.start();
-        }
+        });
 
         //int count = 1;
         

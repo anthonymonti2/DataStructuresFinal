@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dsfinal;
 
 /**
  *
  * @author anthnoym
+ * code help - www.tutorialspoint.com/data_structures/shell_sort_algorithim.html
  */
-public class ShellSort<T> extends SortingUtils<T> {
+public class ShellSort extends SortingUtils {
     
-    public ShellSort(T[] array, String name)
+    public ShellSort(int[] array, String name)
     {
         super(array , "Shell Sort");
     }
@@ -19,31 +15,37 @@ public class ShellSort<T> extends SortingUtils<T> {
     public void sort()
     {
         
-        int h = 0;
+        int h = 1;
         
-        for(int i = 0; i < array.length; i++)
+        while(h < array.length/3)
         {
-            h = h * 3 + 1;
+            h = 3*h + 1;
         }
         
         while(h > 0)
         {
             for(int outter = h; outter < array.length; outter++)
             {
-                T valueToInsert = array[outter];
+                int valueToInsert = array[outter];
                 int inner = outter;
 
-                //while (inner > interval - 1 && array[inner - interval] >= valueToInsert)
-                //{
-
-                //}
+                while (inner > h - 1 && array[inner - h] >= valueToInsert)
+                {
+                    swap(inner,(inner-h));
+                    inner = inner - h;
+                }
+                
+                array[inner] = valueToInsert;
             }
+            
+            h = (h-1)/3;
         }
     }
     
     public void run()
     {
         super.run();
+        System.out.println(super.toString());
     }
     
     
