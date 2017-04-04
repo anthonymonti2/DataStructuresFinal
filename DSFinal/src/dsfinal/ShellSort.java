@@ -7,7 +7,7 @@ package dsfinal;
  */
 public class ShellSort extends SortingUtils {
     
-    public ShellSort(int[] array, String name)
+    public ShellSort(int[] array)
     {
         super(array , "Shell Sort");
     }

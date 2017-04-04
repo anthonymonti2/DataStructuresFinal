@@ -31,7 +31,7 @@ import java.util.StringTokenizer;
  */
 public class FinalProjectNB {
     
-    final static String[] sortOptions = {"","Bubble","Heap","Insertion","Merge","Quick","Selection","Shell"};
+    final static String[] sortOptions = {"","Bubble","Comb", "Heap","Insertion","Merge","Quick","Selection","Shell"};
     
     public static void main(String[] args) throws InterruptedException {
         
@@ -107,36 +107,47 @@ public class FinalProjectNB {
     
     public static void getSort(int toFind, ArrayList<Thread> arrayList, int[] toBeSorted)
     {
-        switch(toFind)
+        if(indexOf(sortOptions,"Selection") == toFind)
         {
-            case 6:
-                Runnable selectionRunnable = new SelectionSort(toBeSorted);
-                arrayList.add(new Thread(selectionRunnable, "Selection Sort"));
-                break;
-            case 1:
-                Runnable bubbleRunnable = new BubbleSort(toBeSorted);
-                arrayList.add(new Thread(bubbleRunnable, "Bubble Sort"));
-                break;
-            case 3:
-                Runnable insertionRunnable = new InsertionSort(toBeSorted);
-                arrayList.add(new Thread(insertionRunnable, "Insertion Sort"));
-                break;
-            case 7:    
-                Runnable shellRunnable = new ShellSort(toBeSorted, "Shell Sort");
-                arrayList.add(new Thread(shellRunnable, "Shell Sort"));
-                break;
-            case 4:    
-                Runnable mergeRunnable = new MergeSort(toBeSorted);
-                arrayList.add(new Thread(mergeRunnable, "Merge Sort"));
-            case 5:    
-                Runnable quickRunnable = new QuickSort(toBeSorted);
-                arrayList.add(new Thread(quickRunnable, "Quick Sort"));
-                break;
-            case 2:    
-                Runnable heapRunnable = new HeapSort(toBeSorted);
-                arrayList.add(new Thread(heapRunnable, "Heap Sort"));
-                break;
+            Runnable selectionRunnable = new SelectionSort(toBeSorted);
+            arrayList.add(new Thread(selectionRunnable, "Selection Sort"));  
         }
+        else if(indexOf(sortOptions, "Bubble") == toFind)
+        {
+            Runnable bubbleRunnable = new BubbleSort(toBeSorted);
+            arrayList.add(new Thread(bubbleRunnable, "Bubble Sort"));
+        }
+        else if(indexOf(sortOptions, "Insertion") == toFind)
+        {
+            Runnable insertionRunnable = new InsertionSort(toBeSorted);
+            arrayList.add(new Thread(insertionRunnable, "Insertion Sort"));
+        }
+        else if(indexOf(sortOptions, "Shell") == toFind)
+        {
+            Runnable shellRunnable = new ShellSort(toBeSorted);
+            arrayList.add(new Thread(shellRunnable, "Shell Sort"));
+        }
+        else if(indexOf(sortOptions, "Merge") == toFind)
+        {
+            Runnable mergeRunnable = new MergeSort(toBeSorted);
+            arrayList.add(new Thread(mergeRunnable, "Merge Sort"));
+        }
+        else if(indexOf(sortOptions, "Quick") == toFind)
+        {
+            Runnable quickRunnable = new QuickSort(toBeSorted);
+            arrayList.add(new Thread(quickRunnable, "Quick Sort"));
+        }
+        else if(indexOf(sortOptions, "Heap") == toFind)
+        {    
+            Runnable heapRunnable = new HeapSort(toBeSorted);
+            arrayList.add(new Thread(heapRunnable, "Heap Sort"));
+        }
+        else if(indexOf(sortOptions, "Comb") == toFind)
+        {
+           Runnable combRunnable = new CombSort(toBeSorted);
+            arrayList.add(new Thread(combRunnable, "Comb Sort")); 
+        }
+        
     }
     
     public static String createListString(String[] array)
@@ -200,5 +211,17 @@ public class FinalProjectNB {
         }
         
         return tBSort;
+    }
+    
+    public static int indexOf(String[] array, String item)
+    {
+        for(int i = 1; i < array.length;i++)
+        {
+            if(array[i].compareTo(item) == 0)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
