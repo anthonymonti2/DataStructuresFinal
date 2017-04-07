@@ -28,16 +28,22 @@ public class RadixSort extends SortingUtils {
     public void run()
     {
         super.run();
+        //toString();
     }
     
     public static void main(String[] args)
     {
-        int[] temp = {5,78,4,5,6,8,23,45,67,56,11};
+        int[] temp = new int[50];
         
-        System.out.println("4,5,5,6,8,11,23,45,56,67,78");
-        for(int num : sort(temp,2))
+        for(int i = 0; i < temp.length; i++)
+                {
+                    temp[i] = (int)(Math.random() * temp.length);
+                }
+        
+        //System.out.println("4,5,5,6,8,11,23,45,56,67,78");
+        for(int num : sort(temp,4))
         {
-            System.out.print(num + ",");
+            //System.out.print(num + ",");
         }
     }
     
@@ -105,5 +111,16 @@ public class RadixSort extends SortingUtils {
         }
         
         return nums;
+    }
+    
+    public String toString(int[] array)
+    {
+        String str = "";
+        for(int temp : array)
+        {
+            str += temp + " , ";
+        }
+        str += "\nNumber of swaps = " + swaps;
+        return str;
     }
 }

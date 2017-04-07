@@ -8,16 +8,16 @@ http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-
 Do To
 counting sort
 bucket sort
-radix sort
 odd even sort
 gnome sort
-cocktail shaker sort
 smooth sort
 intro sort
 
 done
 shell sort
 comb sort
+radix
+cocktail
 
  */
 package dsfinal;
@@ -31,7 +31,7 @@ import java.util.StringTokenizer;
  */
 public class FinalProjectNB {
     
-    final static String[] sortOptions = {"","Bubble","Comb", "Heap","Insertion","Merge","Quick","Selection","Shell"};
+    final static String[] sortOptions = {"","Bubble","Cocktail Shaker","Comb", "Gnome Bubble", "Gnome Insertion","Heap","Insertion","Merge","Quick","Radix","Selection","Shell"};
     
     public static void main(String[] args) throws InterruptedException {
         
@@ -44,16 +44,18 @@ public class FinalProjectNB {
         int MAXNUM = sc.nextInt();
         
         System.out.println("What type of array would you like to sort");
-        System.out.println("1.)Random\n2.)Almost Sorted\n3.)Backwards\n4.)Few Unique\n");
+        System.out.println("1.)Random\n2.)Backwards\n3.)Almost Sorted\n4.)Few Unique\n");
         int arrayType = sc.nextInt();
         
         int[] toBeSorted = generateArray(arrayType,MAXNUM);
+        
+        //printMe(toBeSorted); //used for checking if array is generated correctly
         
         System.out.println("\nWhich sorts would you like to compare times for?");
         System.out.println(createListString(sortOptions));
         System.out.println("If your number of ints to be sorted if very large (> 100,000)\n"
                           +"selecting more than 4 sorts will cause massive slow downs\n"
-                          +"but will still work. Be aware");
+                          +"and might not provide accurate times, but will still work.\nBe aware");
         System.out.println("Enter each number with a comma between the numbers");
         
         sc.nextLine(); //reset scanner
@@ -147,7 +149,30 @@ public class FinalProjectNB {
            Runnable combRunnable = new CombSort(toBeSorted);
             arrayList.add(new Thread(combRunnable, "Comb Sort")); 
         }
-        
+        else if(indexOf(sortOptions, "Radix") == toFind)
+        {
+            Runnable radixRunnable = new RadixSort(toBeSorted, getNumDigits(toBeSorted.length));
+            arrayList.add(new Thread(radixRunnable, "Radix Sort"));
+        }
+        else if(indexOf(sortOptions, "Cocktail Shaker") == toFind)
+        {
+            Runnable cocktailRunnable = new CocktailShakerSort(toBeSorted);
+            arrayList.add(new Thread(cocktailRunnable, "Cocktail Shaker Sort"));
+        }
+        else if(indexOf(sortOptions, "Gnome Bubble") == toFind)
+        {
+            Runnable gnomeBubbleRunnable = new GnomeBubbleSort(toBeSorted);
+            arrayList.add(new Thread(gnomeBubbleRunnable, "Gnome Bubble Sort"));
+        }
+        else if(indexOf(sortOptions, "Gnome Insertion") == toFind)
+        {
+            Runnable gnomeInsertionRunnable = new GnomeInsertionSort(toBeSorted);
+            arrayList.add(new Thread(gnomeInsertionRunnable, "Gnome Insertion Sort"));
+        }
+        else
+        {
+            System.out.println("Could not find " + toFind + "\nSkipping");
+        }
     }
     
     public static String createListString(String[] array)
@@ -164,7 +189,7 @@ public class FinalProjectNB {
         
         return str;
     }
-    
+ 
     public static int[] generateArray(int type, int max)
     {
         int[] tBSort = new int[max];
@@ -183,19 +208,22 @@ public class FinalProjectNB {
                 System.out.println("\nGenerating backwards array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
-                    tBSort[max-i] = i;
+                    tBSort[max-1-i] = i;
                 }
                 break;
             case 3:
                 //almost sorted
                 System.out.println("\nGenerating almost sorted array of " + max + " integers");
-                for(int i = 0; i < (double)(max * .75) ; i++)
+                for(int i = 0; i < max; i++)
                 {
-                    tBSort[i] = i;
-                }
-                for(int i = 0; i < max/4; i++)
-                {
-                    tBSort[i] = (int)(Math.random() * max);
+                    if(i < (int)(max * .75))
+                    {
+                        tBSort[i] = i;
+                    }
+                    else
+                    {
+                        tBSort[i] = (int)(Math.random() * max);
+                    }
                 }
                 break;
             case 4:
@@ -223,5 +251,25 @@ public class FinalProjectNB {
             }
         }
         return -1;
+    }
+    
+    private static int getNumDigits(int num)
+    {
+        if(num == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1+ getNumDigits(num/10);
+        }
+    }
+    
+    private static void printMe(int[] nums)
+    {
+        for(int i = 0; i < nums.length;i++)
+        {
+            System.out.print(nums[i] + ",");
+        }
     }
 }
