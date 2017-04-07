@@ -7,7 +7,6 @@ http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-
 
 Do To
 counting sort
-comb sort
 bucket sort
 radix sort
 odd even sort
@@ -18,6 +17,7 @@ intro sort
 
 done
 shell sort
+comb sort
 
  */
 package dsfinal;
