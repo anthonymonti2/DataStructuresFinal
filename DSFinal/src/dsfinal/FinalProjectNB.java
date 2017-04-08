@@ -9,7 +9,6 @@ Do To
 counting sort
 bucket sort
 odd even sort
-gnome sort
 smooth sort
 intro sort
 
@@ -18,6 +17,7 @@ shell sort
 comb sort
 radix
 cocktail
+gnome
 
  */
 package dsfinal;
@@ -31,7 +31,7 @@ import java.util.StringTokenizer;
  */
 public class FinalProjectNB {
     
-    final static String[] sortOptions = {"","Bubble","Cocktail Shaker","Comb", "Gnome Bubble", "Gnome Insertion","Heap","Insertion","Merge","Quick","Radix","Selection","Shell"};
+    final static String[] sortOptions = {"","Bubble","Cocktail Shaker","Comb", "Gnome Bubble", "Gnome Insertion","Heap","Insertion","Merge","Odd-Even","Quick","Radix","Selection","Shell"};
     
     public static void main(String[] args) throws InterruptedException {
         
@@ -49,7 +49,7 @@ public class FinalProjectNB {
         
         int[] toBeSorted = generateArray(arrayType,MAXNUM);
         
-        //printMe(toBeSorted); //used for checking if array is generated correctly
+        printMe(toBeSorted); //used for checking if array is generated correctly
         
         System.out.println("\nWhich sorts would you like to compare times for?");
         System.out.println(createListString(sortOptions));
@@ -168,6 +168,11 @@ public class FinalProjectNB {
         {
             Runnable gnomeInsertionRunnable = new GnomeInsertionSort(toBeSorted);
             arrayList.add(new Thread(gnomeInsertionRunnable, "Gnome Insertion Sort"));
+        }
+        else if(indexOf(sortOptions, "Odd-Even") == toFind)
+        {
+            Runnable oddEvenRunnable = new OddEvenSort(toBeSorted);
+            arrayList.add(new Thread(oddEvenRunnable, "Odd-Even Sort"));
         }
         else
         {
