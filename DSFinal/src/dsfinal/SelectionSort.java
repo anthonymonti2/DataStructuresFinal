@@ -5,6 +5,10 @@
  */
 package dsfinal;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
 /**
  *
  * @author Anthony
@@ -40,6 +44,22 @@ public class SelectionSort extends SortingUtils {
     public void run()
     {
         super.run();
+    }
+    
+    public void drawSort(Graphics g)
+    {
+        rectArray = new Rectangle[20];
+        int[] numArray = genRandom(rectArray.length);
+        
+        for(int i = 0; i < rectArray.length; i++)
+        {
+            rectArray[i] = new Rectangle(20*i, 400, 50, numArray[i]*15);
+        }
+        
+        for(Rectangle rect: rectArray)
+        {
+            drawRect(g,rect,Color.BLUE);
+        }
     }
     
     

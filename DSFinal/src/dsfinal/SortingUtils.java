@@ -7,6 +7,11 @@ package dsfinal;
 
 //import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+
 /**
  *
  * @author Anthony
@@ -17,6 +22,8 @@ public abstract class SortingUtils implements Runnable {
     private long startTime;
     private long endTime;
     private String sortName;
+    
+    protected Rectangle[] rectArray;
 
     public SortingUtils(int[] a, String sortName)
     {
@@ -49,6 +56,8 @@ public abstract class SortingUtils implements Runnable {
         }
     }
     
+    public abstract void drawSort(Graphics g);
+    
     public String toString()
     {
         String str = "";
@@ -58,5 +67,23 @@ public abstract class SortingUtils implements Runnable {
         }
         str += "\nNumber of swaps = " + swaps;
         return str;
+    }
+    
+    public int[] genRandom(int numItems)
+    {
+        int[] array = new int[numItems];
+        
+        for(int i = 0; i < numItems; i++)
+                {
+                    array[i] = (int)(Math.random() * numItems);
+                }
+        
+        return array;
+    }
+    
+    public void drawRect(Graphics g, Rectangle rect, Color c)
+    {
+        g.setColor(c);
+        g.drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 }
