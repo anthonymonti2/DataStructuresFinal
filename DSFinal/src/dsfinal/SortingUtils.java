@@ -28,11 +28,17 @@ public abstract class SortingUtils implements Runnable {
     final int height = 600;
     
     protected Block[] blockArray;
+    protected int[] numArray;
 
-    public SortingUtils(int[] a, String sortName)
+    public SortingUtils(int[] a, String sortName, boolean isGraphic)
     {
         array = a;
         this.sortName = sortName;
+        
+        if(isGraphic)
+        {
+            generateRect();
+        }
     }
     
     public synchronized void swap(int a, int b)
@@ -60,7 +66,14 @@ public abstract class SortingUtils implements Runnable {
         }
     }
     
-    public abstract void drawSort(Graphics g);
+    public void drawSort(Graphics g)
+    {
+        for(int i = 0; i < blockArray.length; i++)
+        {
+            drawBlock(g,blockArray[i]);
+            g.drawString(addZero(numArray[i]), blockArray[i].x+ 6, blockArray[i].y + 20);            
+        }
+    }
     
     public String toString()
     {
@@ -100,6 +113,26 @@ public abstract class SortingUtils implements Runnable {
         else
         {
             return num + "";
+        }
+    }
+    
+    public void generateRect()
+    {
+        blockArray = new Block[30];
+        numArray = genRandom(blockArray.length);
+        
+        //Create array of rectangle with a height based on their location in array
+        for(int i = 0; i < blockArray.length; i++)
+        {
+            blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i]*15, Color.GREEN);
+        }
+    }
+    
+    public void resetColor()
+    {
+        for(int i = 0; i < blockArray.length; i++)
+        {
+            blockArray[i].color = Color.GREEN;
         }
     }
 }

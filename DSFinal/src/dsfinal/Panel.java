@@ -24,7 +24,7 @@ public class Panel extends JPanel {
     {
         super();
         super.setPreferredSize(new Dimension(height,width));
-        ss = new SelectionSort(new int[0]);
+        ss = new SelectionSort(new int[0], true);
     }
     
     public void paintComponent(Graphics g)
@@ -32,7 +32,13 @@ public class Panel extends JPanel {
         //method for repainting
         super.paintComponent(g);
         ss.drawSort(g);
-        
+    }
+    
+    public void update()
+    {
+        ss.resetColor();
+        ss.stepSort(ss.iNum, ss.qNum);
+        System.out.println("Panel update");
     }
     
 }

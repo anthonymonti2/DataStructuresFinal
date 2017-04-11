@@ -5,7 +5,10 @@
  */
 package dsfinal;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 /**
  *
@@ -17,6 +20,8 @@ public class main {
     
     private static JFrame frame;
     private static Panel panel = new Panel(screenHeight, screenWidth);
+    
+    private static Timer timer;
     
     public static void main(String[] args)
     {
@@ -37,8 +42,19 @@ public class main {
             frame.pack();
         }
         
-        panel.repaint();
+        timer = new Timer(250, new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                panel.update();
+                panel.repaint();
+                System.out.println("Loop complete");
+            }
+        });
+        
+        timer.start();
         
     }
+    
     
 }
