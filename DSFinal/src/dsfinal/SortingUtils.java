@@ -5,13 +5,13 @@
  */
 package dsfinal;
 
-import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
+//import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
 
 /**
  *
  * @author Anthony
  */
-public abstract class SortingUtils {
+public abstract class SortingUtils implements Runnable {
     protected int[] array;
     protected long swaps;
     private long startTime;
@@ -36,10 +36,17 @@ public abstract class SortingUtils {
     
     public synchronized void run()
     {
-        startTime = System.nanoTime();
-        sort();
-        endTime = System.nanoTime();
-        System.out.println(sortName + " : " + (System.nanoTime() - startTime) / Math.pow(10,9) + " , Number of swaps : " + swaps);
+        try
+        {
+            startTime = System.nanoTime();
+            sort();
+            endTime = System.nanoTime();
+            System.out.println(sortName + " : " + (System.nanoTime() - startTime) / Math.pow(10,9) + " , Number of swaps : " + swaps);
+        }
+        catch(Exception e)
+        {
+            System.out.println(sortName + " threw an error after " + (System.nanoTime() - startTime) / Math.pow(10,9) + " seconds");
+        }
     }
     
     public String toString()
@@ -52,5 +59,4 @@ public abstract class SortingUtils {
         str += "\nNumber of swaps = " + swaps;
         return str;
     }
-    
 }

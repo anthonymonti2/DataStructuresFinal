@@ -9,7 +9,7 @@ package dsfinal;
  *
  * @author Anthony
  */
-public class InsertionSort extends SortingUtils implements Runnable {
+public class InsertionSort extends SortingUtils{
     
     public InsertionSort(int[] array)
     {
