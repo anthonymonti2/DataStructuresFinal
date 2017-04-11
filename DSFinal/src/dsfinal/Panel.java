@@ -8,6 +8,7 @@ package dsfinal;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 
 /**
@@ -29,7 +30,7 @@ public class Panel extends JPanel {
     public void paintComponent(Graphics g)
     {
         //method for repainting
-        super.paint(g);
+        super.paintComponent(g);
         ss.drawSort(g);
         
     }

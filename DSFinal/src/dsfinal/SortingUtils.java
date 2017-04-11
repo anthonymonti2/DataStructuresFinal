@@ -23,7 +23,11 @@ public abstract class SortingUtils implements Runnable {
     private long endTime;
     private String sortName;
     
-    protected Rectangle[] rectArray;
+    protected int delay;
+    
+    final int height = 600;
+    
+    protected Block[] blockArray;
 
     public SortingUtils(int[] a, String sortName)
     {
@@ -75,15 +79,27 @@ public abstract class SortingUtils implements Runnable {
         
         for(int i = 0; i < numItems; i++)
                 {
-                    array[i] = (int)(Math.random() * numItems);
+                    array[i] = (int)(Math.random() * numItems) + 1;
                 }
         
         return array;
     }
     
-    public void drawRect(Graphics g, Rectangle rect, Color c)
+    public void drawBlock(Graphics g, Block block)
     {
-        g.setColor(c);
-        g.drawRect(rect.x, rect.y, rect.width, rect.height);
+        g.setColor(block.color);
+        g.drawRect(block.x, block.y, block.width, block.height);
+    }
+    
+    public String addZero(int num)
+    {
+        if(num < 10)
+        {
+            return "0" + num;
+        }
+        else
+        {
+            return num + "";
+        }
     }
 }
