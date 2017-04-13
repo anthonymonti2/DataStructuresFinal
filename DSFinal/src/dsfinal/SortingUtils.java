@@ -68,8 +68,8 @@ public abstract class SortingUtils implements Runnable {
     
     public void drawSort(Graphics g)
     {
-        g.setColor(Color.WHITE);
-        g.drawRect(0, 0, height, 1000);
+        //g.setColor(Color.WHITE);
+        //g.drawRect(0, 0, height, 1000);
         for(int i = 0; i < blockArray.length; i++)
         {
             drawBlock(g,blockArray[i]);
@@ -122,14 +122,15 @@ public abstract class SortingUtils implements Runnable {
     
     public void generateRect()
     {
-        int numlength = 10;
+        int numlength = 25;
         blockArray = new Block[numlength];
         numArray = genRandom(blockArray.length);
+        //numArray = new int[]{2,8,11,17,1,4,2,12,12,7,17,18,10,2,6,1,3,20,7,16};
         
         //Create array of rectangle with a height based on their location in array
         for(int i = 0; i < blockArray.length; i++)
         {
-            blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i]*15, Color.GREEN, false);
+            blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i]*10, Color.GREEN, false);
         }
     }
     

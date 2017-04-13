@@ -24,9 +24,13 @@ public class SelectionSort extends SortingUtils {
     public SelectionSort(int[] array, boolean isGraphic)
     {
         super(array, "Selection Sort", isGraphic);
-        iNum = numArray.length-1;
-        qNum = iNum - 1;
-        indexNum = iNum;
+        
+        if(isGraphic)
+        {
+            iNum = numArray.length-1;
+            qNum = iNum - 1;
+            indexNum = iNum;
+        }
     }
     
     @Override
@@ -58,10 +62,10 @@ public class SelectionSort extends SortingUtils {
     public void stepSort()
     {
         if(iNum>0){
-            blockArray[iNum].color=Color.YELLOW;
+            blockArray[iNum].color=Color.GRAY;
             if(qNum >= 0){
                 if(numArray[qNum] > numArray[indexNum]){
-                    blockArray[indexNum].color=(indexNum==iNum)?Color.YELLOW: Color.GREEN;
+                    blockArray[indexNum].color=(indexNum==iNum)?Color.GRAY: Color.GREEN;
                     indexNum=qNum;         
                     blockArray[indexNum].color=Color.BLUE;
                 }

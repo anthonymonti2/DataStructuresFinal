@@ -15,12 +15,15 @@ public class Panel extends JPanel {
 
     
     SelectionSort ss;
+    ShellSort shs;
     
     public Panel(int width, int height)
     {
         super();
         super.setPreferredSize(new Dimension(height,width));
-        ss = new SelectionSort(new int[0], true);
+        //ss = new SelectionSort(new int[0], true);
+        //ss = new SelectionSort(new int[0], true);
+        shs = new ShellSort(new int[0], true);
         super.setBackground(Color.WHITE);
     }
     
@@ -28,14 +31,14 @@ public class Panel extends JPanel {
     {
         //method for repainting
         super.paintComponent(g);
-        ss.drawSort(g);
+        //ss.drawSort(g);
+        shs.drawSort(g);
     }
     
     public void update()
     {
-        //ss.resetColor(ss.qNum, ss.indexNum);
-        ss.stepSort();
-        //System.out.println("Panel update");
+        //ss.stepSort();
+        shs.stepSort();
     }
     
 }
