@@ -36,9 +36,9 @@ public class Panel extends JPanel {
     
     public void update()
     {
-        ss.resetColor();
+        ss.resetColor(ss.iNum, ss.qNum);
         ss.stepSort(ss.iNum, ss.qNum);
-        System.out.println("Panel update");
+        //System.out.println("Panel update");
     }
     
 }

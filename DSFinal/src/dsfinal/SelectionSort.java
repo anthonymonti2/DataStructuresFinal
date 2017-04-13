@@ -57,28 +57,43 @@ public class SelectionSort extends SortingUtils {
     public void stepSort(int i, int q)
     {
         if(i > 0)
-        {
-            
-            blockArray[i].color = Color.RED;
-            indexNum = i;
+        { 
             if(q >= 0)
-            {   blockArray[q].color = Color.RED;
+            {   
+                //indexNum = i;
                 if(numArray[q] > numArray[indexNum])
                 {
                     indexNum = q;
+                    blockArray[indexNum].color = Color.BLUE;
                 }
+                else
+                {
+                     blockArray[q].color = Color.RED;
+                }
+
                 qNum -= 1;
             }
-            else
-            {
-                qNum = iNum - 1;
-                iNum -= 1;
-            } 
             
-            if(numArray[i] != numArray[indexNum])
+            if(q <= 0)
             {
-                //swap(indexNum,i);
+                iNum -= 1;
+                qNum = iNum - 1;
+                if(numArray[i] != numArray[indexNum])
+                {
+                    swapGraphic(indexNum,i);
+                    System.out.println("Swap");
+                    System.out.println(i);
+                    System.out.println(indexNum);
+                }
+                indexNum = i;
             }
+            
+            
         }
+    }
+    
+    public void drawSort()
+    {
+        resetColor(qNum, indexNum);
     }
 }

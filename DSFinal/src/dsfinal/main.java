@@ -42,13 +42,13 @@ public class main {
             frame.pack();
         }
         
-        timer = new Timer(250, new ActionListener()
+        timer = new Timer(1000, new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 panel.update();
                 panel.repaint();
-                System.out.println("Loop complete");
+                //System.out.println("Loop complete");
             }
         });
         
