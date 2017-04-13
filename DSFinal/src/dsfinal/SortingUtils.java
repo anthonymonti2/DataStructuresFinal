@@ -68,6 +68,8 @@ public abstract class SortingUtils implements Runnable {
     
     public void drawSort(Graphics g)
     {
+        g.setColor(Color.WHITE);
+        g.drawRect(0, 0, height, 1000);
         for(int i = 0; i < blockArray.length; i++)
         {
             drawBlock(g,blockArray[i]);
@@ -120,21 +122,22 @@ public abstract class SortingUtils implements Runnable {
     
     public void generateRect()
     {
-        blockArray = new Block[10];
+        int numlength = 10;
+        blockArray = new Block[numlength];
         numArray = genRandom(blockArray.length);
         
         //Create array of rectangle with a height based on their location in array
         for(int i = 0; i < blockArray.length; i++)
         {
-            blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i]*15, Color.GREEN);
+            blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i]*15, Color.GREEN, false);
         }
     }
     
     public void resetColor(int q, int index)
     {
-        for(int i = 0 ; i < blockArray.length; i++)
+        for(int i = 0; i < blockArray.length; i++)
         {
-            if(i != index || i == q)
+            if(i != index || i != q)
             {
                 blockArray[i].color = Color.green;
             }
@@ -147,9 +150,11 @@ public abstract class SortingUtils implements Runnable {
         numArray[a] = numArray[b];
         numArray[b] = temp;
         
-        Block tempBlock = blockArray[a];
+        Block tempBlock = blockArray[a]; int tempAX=blockArray[a].x, tempBX=blockArray[b].x;
         blockArray[a] = blockArray[b];
+        blockArray[a].x = tempAX;
         blockArray[b] = tempBlock;
+        blockArray[b].x = tempBX;
         
     }
 }

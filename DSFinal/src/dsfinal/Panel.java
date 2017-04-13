@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dsfinal;
 
+import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -25,6 +21,7 @@ public class Panel extends JPanel {
         super();
         super.setPreferredSize(new Dimension(height,width));
         ss = new SelectionSort(new int[0], true);
+        super.setBackground(Color.WHITE);
     }
     
     public void paintComponent(Graphics g)
@@ -36,8 +33,8 @@ public class Panel extends JPanel {
     
     public void update()
     {
-        ss.resetColor(ss.iNum, ss.qNum);
-        ss.stepSort(ss.iNum, ss.qNum);
+        //ss.resetColor(ss.qNum, ss.indexNum);
+        ss.stepSort();
         //System.out.println("Panel update");
     }
     

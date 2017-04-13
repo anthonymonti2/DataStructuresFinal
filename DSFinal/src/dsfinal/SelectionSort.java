@@ -24,8 +24,9 @@ public class SelectionSort extends SortingUtils {
     public SelectionSort(int[] array, boolean isGraphic)
     {
         super(array, "Selection Sort", isGraphic);
-        iNum = numArray.length - 1;
+        iNum = numArray.length-1;
         qNum = iNum - 1;
+        indexNum = iNum;
     }
     
     @Override
@@ -54,46 +55,43 @@ public class SelectionSort extends SortingUtils {
         super.run();
     }
     
-    public void stepSort(int i, int q)
+    public void stepSort()
     {
-        if(i > 0)
-        { 
-            if(q >= 0)
-            {   
-                //indexNum = i;
-                if(numArray[q] > numArray[indexNum])
-                {
-                    indexNum = q;
-                    blockArray[indexNum].color = Color.BLUE;
+        if(iNum>0){
+            blockArray[iNum].color=Color.YELLOW;
+            if(qNum >= 0){
+                if(numArray[qNum] > numArray[indexNum]){
+                    blockArray[indexNum].color=(indexNum==iNum)?Color.YELLOW: Color.GREEN;
+                    indexNum=qNum;         
+                    blockArray[indexNum].color=Color.BLUE;
                 }
-                else
-                {
-                     blockArray[q].color = Color.RED;
+                else{
+                    blockArray[qNum].color=Color.GREEN;
                 }
+            } 
 
-                qNum -= 1;
-            }
-            
-            if(q <= 0)
-            {
-                iNum -= 1;
-                qNum = iNum - 1;
-                if(numArray[i] != numArray[indexNum])
-                {
-                    swapGraphic(indexNum,i);
-                    System.out.println("Swap");
-                    System.out.println(i);
-                    System.out.println(indexNum);
+            qNum--;
+            if(qNum < 0){
+                if(numArray[iNum] != numArray[indexNum]){
+                    swapGraphic(iNum, indexNum);
                 }
-                indexNum = i;
+                blockArray[iNum].isSorted = true;
+                iNum--;
+                qNum=iNum-1;
+                indexNum=iNum;
+                for(int i=0; i<blockArray.length; i++){
+                    if(blockArray[i].isSorted == true)
+                    {
+                        blockArray[i].color=Color.ORANGE;
+                    }
+                    else
+                    {
+                        blockArray[i].color=Color.GREEN;
+                    }
+                }
             }
-            
-            
+            if(qNum!=-1)
+                blockArray[qNum].color=Color.RED;
         }
-    }
-    
-    public void drawSort()
-    {
-        resetColor(qNum, indexNum);
     }
 }
