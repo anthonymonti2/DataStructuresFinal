@@ -21,8 +21,7 @@ public class Panel extends JPanel {
     {
         super();
         super.setPreferredSize(new Dimension(height,width));
-        //ss = new SelectionSort(new int[0], true);
-        //ss = new SelectionSort(new int[0], true);
+        ss = new SelectionSort(new int[0], true);
         shs = new ShellSort(new int[0], true);
         super.setBackground(Color.WHITE);
     }

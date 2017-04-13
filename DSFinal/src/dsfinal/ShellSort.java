@@ -33,6 +33,15 @@ public class ShellSort extends SortingUtils {
         }
     }
     
+    public static void main (String [] args)
+    {
+        int[] tempArray = new int[]{2,8,11,17,1,4,2,12,12,7,17,18,10,2,6,1,3,20,7,16};
+        ShellSort ss = new ShellSort(tempArray, false);
+        System.out.println(ss.toString(tempArray));
+        ss.sort();
+        System.out.println(ss.toString(tempArray));
+    }
+    
     public void sort()
     {
         int h = 1;       
@@ -79,13 +88,18 @@ public class ShellSort extends SortingUtils {
                 {
                    //System.out.println(outterNum);
                    numArray[innerNum] = vTINum;
-                   vTINum = numArray[outterNum];
-                   innerNum = outterNum;
                    outterNum++;
+                   if(outterNum < numArray.length)
+                   {
+                        vTINum = numArray[outterNum];
+                        innerNum = outterNum;
+                   }
+                   
                 } 
+                
             }
 
-            if(outterNum == numArray.length)
+            if(outterNum >= numArray.length)
             {
                 hNum = (hNum-1)/3;
                 outterNum = hNum;

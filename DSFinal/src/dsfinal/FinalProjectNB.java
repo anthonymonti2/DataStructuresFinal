@@ -111,7 +111,7 @@ public class FinalProjectNB {
     {
         if(indexOf(sortOptions,"Selection") == toFind)
         {
-            Runnable selectionRunnable = new SelectionSort(toBeSorted);
+            Runnable selectionRunnable = new SelectionSort(toBeSorted,false);
             arrayList.add(new Thread(selectionRunnable, "Selection Sort"));  
         }
         else if(indexOf(sortOptions, "Bubble") == toFind)
@@ -126,7 +126,7 @@ public class FinalProjectNB {
         }
         else if(indexOf(sortOptions, "Shell") == toFind)
         {
-            Runnable shellRunnable = new ShellSort(toBeSorted);
+            Runnable shellRunnable = new ShellSort(toBeSorted,false);
             arrayList.add(new Thread(shellRunnable, "Shell Sort"));
         }
         else if(indexOf(sortOptions, "Merge") == toFind)

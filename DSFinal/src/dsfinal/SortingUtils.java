@@ -72,8 +72,7 @@ public abstract class SortingUtils implements Runnable {
         //g.drawRect(0, 0, height, 1000);
         for(int i = 0; i < blockArray.length; i++)
         {
-            drawBlock(g,blockArray[i]);
-            g.drawString(addZero(numArray[i]), blockArray[i].x+ 6, blockArray[i].y + 20);            
+            blockArray[i].drawBlock(g);
         }
         
         
@@ -102,12 +101,6 @@ public abstract class SortingUtils implements Runnable {
         return array;
     }
     
-    public void drawBlock(Graphics g, Block block)
-    {
-        g.setColor(block.color);
-        g.drawRect(block.x, block.y, block.width, block.height);
-    }
-    
     public String addZero(int num)
     {
         if(num < 10)
@@ -122,7 +115,7 @@ public abstract class SortingUtils implements Runnable {
     
     public void generateRect()
     {
-        int numlength = 25;
+        int numlength = 30;
         blockArray = new Block[numlength];
         numArray = genRandom(blockArray.length);
         //numArray = new int[]{2,8,11,17,1,4,2,12,12,7,17,18,10,2,6,1,3,20,7,16};
@@ -130,7 +123,8 @@ public abstract class SortingUtils implements Runnable {
         //Create array of rectangle with a height based on their location in array
         for(int i = 0; i < blockArray.length; i++)
         {
-            blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i]*10, Color.GREEN, false);
+            //blockArray[i] = new Block(30 *i + 50, height - 100, 25,  -1 * numArray[i], Color.GREEN, false);
+            blockArray[i] = new Block(30*i+50, height-100, 25, numArray[i], Color.GREEN, false);
         }
     }
     
@@ -151,11 +145,16 @@ public abstract class SortingUtils implements Runnable {
         numArray[a] = numArray[b];
         numArray[b] = temp;
         
+        /*
         Block tempBlock = blockArray[a]; int tempAX=blockArray[a].x, tempBX=blockArray[b].x;
         blockArray[a] = blockArray[b];
         blockArray[a].x = tempAX;
         blockArray[b] = tempBlock;
-        blockArray[b].x = tempBX;
+        blockArray[b].x = tempBX;*/
+        
+        int tempValue = blockArray[a].value;
+        blockArray[a].value = blockArray[b].value;
+        blockArray[b].value = tempValue;
         
     }
 }
