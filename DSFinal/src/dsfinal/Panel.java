@@ -16,6 +16,7 @@ public class Panel extends JPanel {
     
     SelectionSort ss;
     ShellSort shs;
+    CocktailShakerSort css;
     
     public Panel(int width, int height)
     {
@@ -23,6 +24,7 @@ public class Panel extends JPanel {
         super.setPreferredSize(new Dimension(height,width));
         ss = new SelectionSort(new int[0], true);
         shs = new ShellSort(new int[0], true);
+        css = new CocktailShakerSort(new int[0], true);
         super.setBackground(Color.WHITE);
     }
     
@@ -31,13 +33,15 @@ public class Panel extends JPanel {
         //method for repainting
         super.paintComponent(g);
         //ss.drawSort(g);
-        shs.drawSort(g);
+        //shs.drawSort(g);
+        css.drawSort(g);
     }
     
     public void update()
     {
         //ss.stepSort();
-        shs.stepSort();
+        //shs.stepSort();
+        css.stepSort();
     }
     
 }

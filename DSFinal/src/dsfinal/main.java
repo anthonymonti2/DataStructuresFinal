@@ -19,7 +19,7 @@ public class main {
     final static int screenWidth = 1000;
     
     private static JFrame frame;
-    private static Panel panel = new Panel(screenHeight, screenWidth);
+    private static Panel sortPanel = new Panel(screenHeight, screenWidth);
     
     private static Timer timer;
     
@@ -27,8 +27,9 @@ public class main {
     {
         frame = new JFrame();
         frame.setTitle("Sorting Comparisons");
+        //frame.setLayout(new Boarderlayout());
         
-        frame.add(panel);
+        frame.add(sortPanel);
         
         frame.setResizable(false);
         frame.setFocusable(true);
@@ -42,13 +43,12 @@ public class main {
             frame.pack();
         }
         
-        timer = new Timer(75, new ActionListener()
+        timer = new Timer(300, new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
-                panel.update();
-                panel.repaint();
-                //System.out.println("Loop complete");
+                sortPanel.update();
+                sortPanel.repaint();
             }
         });
         

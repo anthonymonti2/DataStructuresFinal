@@ -68,8 +68,6 @@ public abstract class SortingUtils implements Runnable {
     
     public void drawSort(Graphics g)
     {
-        //g.setColor(Color.WHITE);
-        //g.drawRect(0, 0, height, 1000);
         for(int i = 0; i < blockArray.length; i++)
         {
             blockArray[i].drawBlock(g);
@@ -128,14 +126,11 @@ public abstract class SortingUtils implements Runnable {
         }
     }
     
-    public void resetColor(int q, int index)
+    public void resetColor()
     {
         for(int i = 0; i < blockArray.length; i++)
         {
-            if(i != index || i != q)
-            {
-                blockArray[i].color = Color.green;
-            }
+            blockArray[i].color = Color.GREEN;
         }
     }
     

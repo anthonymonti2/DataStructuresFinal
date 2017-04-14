@@ -15,7 +15,7 @@ import java.awt.Rectangle;
  */
 public class Block extends Rectangle {
     
-    final int blockMulti = 15;
+    final int blockMulti = 10;
     
     public Color color;
     protected boolean isSorted;
@@ -24,7 +24,6 @@ public class Block extends Rectangle {
     public Block(int x, int y, int w, int value, Color c,boolean iS)
     {
         super(x,y,w,value);
-        //super.height = value * blockMulti;
         this.color = c;
         isSorted = iS;
         this.value = value;

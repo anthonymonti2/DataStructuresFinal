@@ -13,6 +13,7 @@ public class ShellSort extends SortingUtils {
     protected int outterNum;
     protected int innerNum;
     protected int vTINum;
+    protected int compNum;
     
     
     public ShellSort(int[] array, boolean isGraphic)
@@ -30,6 +31,7 @@ public class ShellSort extends SortingUtils {
             outterNum = hNum;
             vTINum = numArray[outterNum];
             innerNum = outterNum;
+            compNum = 0;
         }
     }
     
@@ -72,21 +74,31 @@ public class ShellSort extends SortingUtils {
     
     public void stepSort()
     {
-        
         if(hNum > 0)
         {
             if(outterNum < numArray.length)
-            {               
+            {     
+                
+                for(int i = 0; i < blockArray.length; i++)
+                {
+                    blockArray[i].color = Color.green;
+                }
+                
+                if(innerNum > hNum - 1)
+                {
+                blockArray[innerNum].color = Color.RED;
+                blockArray[innerNum - hNum].color = Color.RED;
+                }
+                
                 if(innerNum > hNum - 1 && numArray[innerNum - hNum] >= vTINum)
-                {   
-                    //blockArray[innerNum].color = Color.BLUE;
-                    //blockArray[innerNum - hNum].color = Color.BLUE;
+                {  
+                    blockArray[innerNum].color = Color.BLUE;
+                    blockArray[innerNum - hNum].color = Color.BLUE;
                     swapGraphic(innerNum, (innerNum-hNum));
                     innerNum = innerNum - hNum;
                 }
                 else
                 {
-                   //System.out.println(outterNum);
                    numArray[innerNum] = vTINum;
                    outterNum++;
                    if(outterNum < numArray.length)
@@ -103,10 +115,43 @@ public class ShellSort extends SortingUtils {
             {
                 hNum = (hNum-1)/3;
                 outterNum = hNum;
-                //System.out.println(hNum);
             } 
         }
-        System.out.println(toString(numArray));
+        else
+        {
+            System.out.println(compNum);
+            if(compNum == 0)
+            {
+                for(int i = 0; i < blockArray.length; i++)
+                {
+                    blockArray[i].color = Color.green;
+                }
+                blockArray[0].color = Color.RED;
+                compNum++;
+            }
+            else if(compNum >= 1 && compNum < blockArray.length-1)
+            {
+                //if((blockArray[compNum].value == blockArray[compNum+1].value) || 
+                //   (blockArray[compNum].value > blockArray[compNum-1].value 
+                //|| blockArray[compNum].value < blockArray[compNum+1].value))
+                if((blockArray[compNum].value >= blockArray[compNum-1].value) 
+                 & (blockArray[compNum].value <= blockArray[compNum+1].value))
+                {
+                    blockArray[compNum + 1].color = Color.RED;
+                    blockArray[compNum].color = Color.orange;   
+                    compNum++;
+                }
+            }
+            
+            if(blockArray[1].color == Color.ORANGE)
+            {
+                blockArray[0].color = Color.ORANGE;
+            }
+            if(blockArray[blockArray.length-2].color == Color.ORANGE)
+            {
+                blockArray[blockArray.length -1].color = Color.ORANGE;
+            }
+        }
     }
     
 }
