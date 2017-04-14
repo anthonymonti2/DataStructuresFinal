@@ -32,8 +32,8 @@ public class Block extends Rectangle {
     public void drawBlock(Graphics g)
     {
         g.setColor(color);
-        g.drawRect(super.x, super.y - (value * blockMulti), super.width, (value * blockMulti));
-        //g.fillRect(super.x, super.y, super.width, value * blockMulti);
+        //g.drawRect(super.x, super.y - (value * blockMulti), super.width, (value * blockMulti));
+        g.fillRect(super.x, super.y - (value * blockMulti), super.width, (value * blockMulti));
         g.drawString(addZero(value), x+ 6, y + 20);   
     }
     

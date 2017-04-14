@@ -43,7 +43,7 @@ public class main {
             frame.pack();
         }
         
-        timer = new Timer(300, new ActionListener()
+        timer = new Timer(10, new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {

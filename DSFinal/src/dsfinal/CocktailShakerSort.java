@@ -5,6 +5,8 @@
  */
 package dsfinal;
 
+import java.awt.Color;
+
 /**
  *
  * @author anthnoym
@@ -14,6 +16,8 @@ public class CocktailShakerSort extends SortingUtils{
     protected int iNum;
     protected int iNumTwo;
     protected boolean swappedBol;
+    protected int loops;
+    protected boolean running;
     
     public CocktailShakerSort(int[] array, boolean isGraphic)
     {
@@ -24,6 +28,8 @@ public class CocktailShakerSort extends SortingUtils{
             swappedBol = false;
             iNum = 0;
             iNumTwo = blockArray.length - 2;
+            loops = 0;
+            running = true;
         }
     }
     
@@ -65,38 +71,81 @@ public class CocktailShakerSort extends SortingUtils{
     
     public void stepSort()
     {
-        if(iNum < blockArray.length - 2)
+        if(running)
         {
-            if(blockArray[iNum].value > blockArray[iNum + 1].value)
+            if(iNum < blockArray.length - 2)
             {
-                swapGraphic(iNum, iNum + 1);
-                swappedBol = true; 
-                System.out.println("Swap forward");
+                for (Block blockArray1 : blockArray) {
+                    if (blockArray1.isSorted) {
+                        blockArray1.color = Color.ORANGE;
+                    } else {
+                        blockArray1.color = Color.green;
+                    }
+                }
+                    blockArray[iNum].color = Color.RED;
+                    blockArray[iNum + 1].color = Color.RED;
+
+                if(blockArray[iNum].value > blockArray[iNum + 1].value)
+                {
+                    blockArray[iNum].color = Color.BLUE;
+                    blockArray[iNum + 1].color = Color.BLUE;
+                    swapGraphic(iNum, iNum + 1);
+                    swappedBol = true; 
+                    //System.out.println("Swap forward");
+                }
+                iNum++;
             }
-            iNum++;
-        }
-        
-        if(iNum >= blockArray.length - 2)
-        {
-            if(true)
+
+            if(iNum >= blockArray.length - 2-loops)
             {
+                if(iNumTwo <= blockArray.length - 2)
+                    swappedBol = false;
+
                 if(iNumTwo > 0)
                 {
-                    if(blockArray[iNum].value > blockArray[iNum + 1].value)
+                    for (Block blockArray1 : blockArray) {
+                        if (blockArray1.isSorted) {
+                            blockArray1.color = Color.ORANGE;
+                        } else {
+                            blockArray1.color = Color.green;
+                        }
+                    }
+
+                    blockArray[iNumTwo].color = Color.RED;
+                    blockArray[iNumTwo + 1].color = Color.RED;
+
+                    if(blockArray[iNumTwo].value > blockArray[iNumTwo + 1].value)
                     {
-                        swapGraphic(iNum, iNum + 1);
+                        blockArray[iNumTwo].color = Color.BLUE;
+                        blockArray[iNumTwo + 1].color = Color.BLUE;
+                        swapGraphic(iNumTwo, iNumTwo + 1);
                         swappedBol = true;
-                        System.out.println("Swap backward");
                     }
                     iNumTwo--; 
                 }
             }
+
+            if(iNumTwo <= 0 + loops)
+            {
+                if(!swappedBol && iNum <= blockArray.length - 2 - loops && iNumTwo >= 0 + loops)
+                {
+                    //running = false;
+                }
+                
+                blockArray[iNum+1-loops].isSorted = true;
+                blockArray[iNumTwo].isSorted = true;  
+
+                iNum = loops;
+                iNumTwo = blockArray.length - 2 - loops;  
+                loops++;
+                
+                
+                swappedBol = false;
+            }
         }
-        
-        if(iNumTwo <= 0)
+        else
         {
-            iNum = 0;
-            iNumTwo = blockArray.length - 2;
+            System.out.println("Already sorted");
         }
         //System.out.println(toString(numArray));
     }
