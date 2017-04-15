@@ -97,5 +97,11 @@ public class SelectionSort extends SortingUtils {
             if(qNum!=-1)
                 blockArray[qNum].color=Color.RED;
         }
+        
+        if(iNum == 0)
+        {
+            blockArray[0].isSorted = true;
+            blockArray[0].color=Color.ORANGE;
+        }
     }
 }

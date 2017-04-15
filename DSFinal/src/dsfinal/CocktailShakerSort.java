@@ -18,6 +18,7 @@ public class CocktailShakerSort extends SortingUtils{
     protected boolean swappedBol;
     protected int loops;
     protected boolean running;
+    protected boolean sorted;
     
     public CocktailShakerSort(int[] array, boolean isGraphic)
     {
@@ -30,6 +31,7 @@ public class CocktailShakerSort extends SortingUtils{
             iNumTwo = blockArray.length - 2;
             loops = 0;
             running = true;
+            sorted = false;
         }
     }
     
@@ -96,13 +98,14 @@ public class CocktailShakerSort extends SortingUtils{
                 iNum++;
             }
             
+            /*
             if(iNum >= blockArray.length -2)
             {
                 if(swappedBol == false)
                 {
                     running = false;
                 }
-            }
+            }*/
             
             
 
@@ -139,9 +142,9 @@ public class CocktailShakerSort extends SortingUtils{
             {
                 if(swappedBol == false && iNum <= blockArray.length - 2 - loops && iNumTwo >= 0 + loops)
                 {
-                    //running = false;
-                    //blockArray[iNum+1].color = Color.YELLOW;
-                    //blockArray[iNumTwo+2].color = Color.YELLOW;
+                    running = false;
+                    blockArray[iNum+1].color = Color.YELLOW;
+                    blockArray[iNumTwo+2].color = Color.YELLOW;
                 }
                 
                 blockArray[iNum+1-loops].isSorted = true;
@@ -159,9 +162,7 @@ public class CocktailShakerSort extends SortingUtils{
         {
             System.out.println("Already sorted");
         }
-        //System.out.println(toString(numArray));
     }
-    
     public void run()
     {
         super.run();
