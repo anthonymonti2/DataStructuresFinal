@@ -95,6 +95,16 @@ public class CocktailShakerSort extends SortingUtils{
                 }
                 iNum++;
             }
+            
+            if(iNum >= blockArray.length -2)
+            {
+                if(swappedBol == false)
+                {
+                    running = false;
+                }
+            }
+            
+            
 
             if(iNum >= blockArray.length - 2-loops)
             {
@@ -127,9 +137,11 @@ public class CocktailShakerSort extends SortingUtils{
 
             if(iNumTwo <= 0 + loops)
             {
-                if(!swappedBol && iNum <= blockArray.length - 2 - loops && iNumTwo >= 0 + loops)
+                if(swappedBol == false && iNum <= blockArray.length - 2 - loops && iNumTwo >= 0 + loops)
                 {
                     //running = false;
+                    //blockArray[iNum+1].color = Color.YELLOW;
+                    //blockArray[iNumTwo+2].color = Color.YELLOW;
                 }
                 
                 blockArray[iNum+1-loops].isSorted = true;

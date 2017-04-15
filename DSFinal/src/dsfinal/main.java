@@ -25,6 +25,8 @@ public class main {
     
     public static void main(String[] args)
     {
+        System.setProperty("sun.java2d.opengl", "true");
+        
         frame = new JFrame();
         frame.setTitle("Sorting Comparisons");
         //frame.setLayout(new Boarderlayout());

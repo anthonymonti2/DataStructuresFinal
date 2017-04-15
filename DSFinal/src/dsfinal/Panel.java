@@ -4,11 +4,13 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import javax.net.ssl.SSLPeerUnverifiedException;
 
 
 /**
- *
+ * http://stackoverflow.com/questions/19480076/java-animation-stutters-when-not-moving-mouse-cursor
+ * 
  * @author anthonym
  */
 public class Panel extends JPanel {
@@ -35,6 +37,8 @@ public class Panel extends JPanel {
         //ss.drawSort(g);
         //shs.drawSort(g);
         css.drawSort(g);
+        
+        Toolkit.getDefaultToolkit().sync(); //fixes studdering on linux systems
     }
     
     public void update()
