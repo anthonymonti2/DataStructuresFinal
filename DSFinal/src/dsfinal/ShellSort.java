@@ -132,9 +132,6 @@ public class ShellSort extends SortingUtils {
             }
             else if(compNum >= 1 && compNum < blockArray.length-1)
             {
-                //if((blockArray[compNum].value == blockArray[compNum+1].value) || 
-                //   (blockArray[compNum].value > blockArray[compNum-1].value 
-                //|| blockArray[compNum].value < blockArray[compNum+1].value))
                 if((blockArray[compNum].value >= blockArray[compNum-1].value) 
                  & (blockArray[compNum].value <= blockArray[compNum+1].value))
                 {

@@ -5,6 +5,8 @@
  */
 package dsfinal;
 
+import java.awt.Color;
+
 /**
  *
  * @author anthnoym
@@ -15,6 +17,8 @@ public class CombSort extends SortingUtils
     protected boolean sortedBol;
     protected int iNum;
     final double shrink = 1.3;
+    protected boolean finishedLoop;
+    protected int qNum;
     
     public CombSort(int[] array, boolean isGraphic)
     {
@@ -25,6 +29,8 @@ public class CombSort extends SortingUtils
             gapNum = blockArray.length;
             sortedBol = false;
             iNum = 0;
+            qNum = 0;
+            finishedLoop = false;
         }
     }
     
@@ -64,36 +70,43 @@ public class CombSort extends SortingUtils
     
     public void stepSort()
     {
-        if(sortedBol == false)
+        if(sortedBol == false && iNum <= blockArray.length)
         {
-            if(iNum == 0)
+            for(int i = 0; i < blockArray.length; i++)
             {
-                gapNum = (int)(gapNum/shrink);
-                System.out.println(gapNum);
-                if(gapNum > 1)
-                {
-                    sortedBol = false;
-                }
-                else
-                {
-                    gapNum = 1;
-                    sortedBol = true;
-                }
+                blockArray[i].color = Color.green;
             }
+            
+            
             
             if(iNum + gapNum < blockArray.length)
             {
+                blockArray[iNum].color = Color.RED;
+                blockArray[iNum+gapNum].color = Color.RED;
+                System.out.println("I " + iNum);
+                
                 if(blockArray[iNum].value > blockArray[iNum+gapNum].value)
                 {
+                    blockArray[iNum].color = Color.BLUE;
+                    blockArray[iNum + gapNum].color = Color.BLUE;
                     swapGraphic(iNum, iNum+gapNum);
                     sortedBol = false;
-                    iNum++;
                 }
+                iNum++;
             }
-            
-            if(iNum + gapNum >= blockArray.length)
+            else
             {
                 iNum = 0;
+                finishedLoop = true;
+            }
+            
+        }
+        else
+        {
+            if(qNum < blockArray.length)
+            {
+                blockArray[qNum].color = Color.ORANGE;
+                qNum++;
             }
         }
     }
