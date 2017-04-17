@@ -160,7 +160,7 @@ public class CocktailShakerSort extends SortingUtils{
         }
         else
         {
-            System.out.println("Already sorted");
+            //System.out.println("Already sorted");
         }
     }
     public void run()

@@ -16,19 +16,22 @@ import javax.net.ssl.SSLPeerUnverifiedException;
 public class Panel extends JPanel {
 
     
-    protected SelectionSort ss;
-    protected ShellSort shs;
-    protected CocktailShakerSort css;
+    //protected SelectionSort ss;
+    //protected ShellSort shs;
+    //protected CocktailShakerSort css;
     protected boolean doneSorting;
+    protected boolean graphical;
+    protected SortingUtils sort = new SelectionSort(new int[0], true);
     
     public Panel(int width, int height)
     {
         super();
         super.setPreferredSize(new Dimension(height,width));
-        ss = new SelectionSort(new int[0], true);
-        shs = new ShellSort(new int[0], true);
-        css = new CocktailShakerSort(new int[0], true);
+        //ss = 
+        //shs = new ShellSort(new int[0], true);
+        //css = new CocktailShakerSort(new int[0], true);
         super.setBackground(Color.WHITE);
+        graphical = true;
         
         doneSorting = false;
     }
@@ -37,19 +40,30 @@ public class Panel extends JPanel {
     {
         //method for repainting
         super.paintComponent(g);
-        ss.drawSort(g);
-        //shs.drawSort(g);
-        //css.drawSort(g);
+        
+        if(graphical)
+        {
+            sort.drawSort(g);
+        }
+        else
+        {
+            
+        }
         
         Toolkit.getDefaultToolkit().sync(); //fixes studdering on linux systems
     }
     
     public void update()
     {
-        ss.stepSort();
-        //shs.stepSort();
-        //css.stepSort();
-        checkSort(ss);
+        if(graphical)
+        {
+            sort.stepSort();
+            checkSort(sort);
+        }
+        else
+        {
+            
+        }
     }
     
     public void checkSort(SortingUtils sort)

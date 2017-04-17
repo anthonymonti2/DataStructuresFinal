@@ -8,12 +8,14 @@ package dsfinal;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
@@ -41,7 +43,7 @@ public class main {
     private static JMenu graphical;
     //private static JCheckBox[] sortListNGSimple;
     //private static JCheckBox[] sortListNGComplex;
-    private static JCheckBox[] sortListG;
+    private static ButtonGroup sortListG;
     private static JCheckBox[] sortListNG;
     private static JSlider delaySlider;
     
@@ -104,6 +106,8 @@ public class main {
         nonGraphical = new JMenu("Non-Graphical Sorting");
         graphical = new JMenu("Graphical Sorting");
         
+        ButtonGroup bg = new ButtonGroup();
+        
         for(int i = 1; i < sortOptionsNG.length; i++)
         {
             nonGraphical.add(new JCheckBox(sortOptionsNG[i]));
@@ -112,8 +116,12 @@ public class main {
         
         for(int i = 1; i < sortOptionsG.length; i++)
         {
-            graphical.add(new JCheckBox(sortOptionsG[i]));
+            JRadioButton rb = new JRadioButton(sortOptionsG[i]);
+            rb.addActionListener(e -> setUpGraphical(e));
+            bg.add(rb);
+            graphical.add(rb);
         }
+        
         
         menuBar.add(sortsMenu);
         sortsMenu.add(nonGraphical);
@@ -152,6 +160,11 @@ public class main {
                 sortPanel.repaint();
                 start.setEnabled(true);
                 stop.setEnabled(false);
+                
+                if(sortPanel.doneSorting)
+                {
+                    stopTimer();
+                }
             }
         });
         bottomBar.add(start);
@@ -186,10 +199,103 @@ public class main {
     }
     
     public static void startTimer()
-            {
-                timer.start();
-                start.setEnabled(false);
-                stop.setEnabled(true);
-                next.setEnabled(false);
-            }
+    {
+        timer.start();
+        start.setEnabled(false);
+        stop.setEnabled(true);
+        next.setEnabled(false);
+    }
+    
+    public static void stopTimer()
+    {
+        timer.stop();
+        start.setEnabled(true);
+        stop.setEnabled(false);
+        next.setEnabled(false);
+    }
+    
+    public static void setUpGraphical(ActionEvent e)
+    {
+        JRadioButton source = (JRadioButton)(e.getSource());
+        String sortSTR = source.getText();
+        
+        int[] toBeSorted = generateArray(0, 30);
+        
+        if(sortSTR.equals(sortOptionsG[1]))
+        {
+            sortPanel.sort = new CocktailShakerSort(toBeSorted,true);
+        }
+        else if(sortSTR.equals(sortOptionsG[2]))
+        {
+            sortPanel.sort = new SelectionSort(toBeSorted,true);
+        }
+        else if(sortSTR.equals(sortOptionsG[3]))
+        {
+            sortPanel.sort = new ShellSort(toBeSorted,true);
+        }
+        
+        timer.stop();
+    }
+    
+    public static int getIndex(ActionEvent e)
+    {
+        JCheckBox source = (JCheckBox)(e.getSource());
+        
+        if(source.isSelected())
+        {
+           
+        }
+        return 0;
+    }
+    
+    public static int[] generateArray(int type, int max)
+    {
+        int[] tBSort = new int[max];
+        switch(type)
+        {
+            case 1: 
+                //random
+                System.out.println("\nGenerating random array of " + max + " integers");
+                for(int i = 0; i < max; i++)
+                {
+                    tBSort[i] = (int)(Math.random() * max);
+                }
+                break;
+            case 2:
+                //backwards
+                System.out.println("\nGenerating backwards array of " + max + " integers");
+                for(int i = 0; i < max; i++)
+                {
+                    tBSort[max-1-i] = i;
+                }
+                break;
+            case 3:
+                //almost sorted
+                System.out.println("\nGenerating almost sorted array of " + max + " integers");
+                for(int i = 0; i < max; i++)
+                {
+                    if(i < (int)(max * .75))
+                    {
+                        tBSort[i] = i;
+                    }
+                    else
+                    {
+                        tBSort[i] = (int)(Math.random() * max);
+                    }
+                }
+                break;
+            case 4:
+                //few unique
+                for(int i = 0; i < 5; i++)
+                {
+                    for(int q = 0; q < max/5; q++)
+                    {
+                        //doesn't work yet...
+                    }
+                }
+                break;
+        }
+        
+        return tBSort;
+    }
 }

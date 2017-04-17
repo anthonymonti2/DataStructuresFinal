@@ -76,6 +76,8 @@ public abstract class SortingUtils implements Runnable {
         
     }
     
+    public abstract void stepSort();
+    
     public String toString(int[] array)
     {
         String str = "";

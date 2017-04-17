@@ -119,7 +119,7 @@ public class ShellSort extends SortingUtils {
         }
         else
         {
-            System.out.println(compNum);
+            //System.out.println(compNum);
             if(compNum == 0)
             {
                 for(int i = 0; i < blockArray.length; i++)
