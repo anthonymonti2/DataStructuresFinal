@@ -21,6 +21,7 @@ import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,7 +31,7 @@ public class main {
     final static int screenHeight = 600;
     final static int screenWidth = 1000;
     final static String[] sortOptionsNG = {"","Bubble","Cocktail Shaker","Comb", "Gnome Bubble", "Gnome Insertion","Heap","Insertion","Merge","Odd-Even","Quick","Radix","Selection","Shell"};
-    final static String[] sortOptionsG = {"","Cocktail Shaker", "Selection", "Shell"};
+    final static String[] sortOptionsG = {"","Cocktail Shaker","Comb", "Selection", "Shell"};
     
     private static JFrame frame;
     private static Panel sortPanel = new Panel(screenHeight, screenWidth);
@@ -53,10 +54,12 @@ public class main {
     private static String sortListGString;
     
     private static Timer timer;
-    private static int delay = 1000;
+    private static int delay = 500;
     final static int DELAY_MIN = 0;
-    final static int DELAY_MAX = 2000;
+    final static int DELAY_MAX = 1000;
+    
     private static ArrayList<Thread> sorts = new ArrayList<>();
+    protected static int lengthOfSortList;
     
     public static void main(String[] args)
     {
@@ -221,22 +224,33 @@ public class main {
     
     public static void startTimer()
     {
-        timer.start();
-        start.setEnabled(false);
-        stop.setEnabled(true);
-        next.setEnabled(false);
-        
         for(int i = 1; i < sortListNG.length; i++)
         {
             if(sortListNG[i].isSelected() == true)
             {
-                setUpNG();
+                String response = JOptionPane.showInputDialog("Please enter the number of integers you want to sort. "
+                        + " Numbers over 100,000 will slow down everything", "Number of Integers");
+                while(true)
+                {
+                    try
+                    {
+                        lengthOfSortList = Integer.valueOf(response);
+                        setUpNG();
+                        break;
+                    }
+                    catch(Exception e)   
+                    {
+                        response = JOptionPane.showInputDialog("Please enter the number of integers you want to sort. "
+                            + " Numbers over 100,000 will slow down everything", "Number of Integers");
+
+                    }
+                }
+                
+                System.out.println("\fStarting Non Graphical Sorting\n");
                 sorts.forEach((t) -> {
                 t.start();
                 });
-                
-                System.out.println("\fStarting Non Graphical Sorting\n");
-                
+                            
                 for(int q = 1; q < sortListNG.length; q++)
                 {
                     sortListNG[q].setSelected(false);
@@ -244,6 +258,12 @@ public class main {
                 break;
             }
         }
+        
+        timer.start();
+        start.setEnabled(false);
+        stop.setEnabled(true);
+        next.setEnabled(false);
+        
     }
     
     public static void stopTimer()
@@ -269,11 +289,15 @@ public class main {
         }
         else if(sortSTR.equals(sortOptionsG[2]))
         {
-            sortPanel.sort = new SelectionSort(toBeSorted,true);
+            sortPanel.sort = new CombSort(toBeSorted,true);
         }
         else if(sortSTR.equals(sortOptionsG[3]))
         {
             sortPanel.sort = new ShellSort(toBeSorted,true);
+        }
+        else if(sortSTR.equals(sortOptionsG[4]))
+        {
+            sortPanel.sort = new SelectionSort(toBeSorted,true);
         }
         
         timer.stop();
@@ -298,65 +322,69 @@ public class main {
                     Runnable bubbleRunnable = new BubbleSort(toBeSorted,false);
                     sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[2]))
+                else if(sortSTR.equals(sortOptionsNG[2]))
                 {
                     Runnable cocktailShakerRunnable = new CocktailShakerSort(toBeSorted,false);
                     sorts.add(new Thread (cocktailShakerRunnable, "Cocktail Shaker Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[3]))
+                else if(sortSTR.equals(sortOptionsNG[3]))
                 {
                     Runnable combRunnable = new CombSort(toBeSorted,false);
                     sorts.add(new Thread(combRunnable, "Comb Sort")); 
                 }
-                if(sortSTR.equals(sortOptionsNG[4]))
+                else if(sortSTR.equals(sortOptionsNG[4]))
                 {
                     Runnable gnomeBubbleRunnable = new GnomeBubbleSort(toBeSorted,false);
                     sorts.add(new Thread(gnomeBubbleRunnable, "Gnome Bubble Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[5]))
+                else if(sortSTR.equals(sortOptionsNG[5]))
                 {
                     Runnable gnomeInsertionRunnable = new GnomeInsertionSort(toBeSorted,false);
                     sorts.add(new Thread(gnomeInsertionRunnable, "Gnome Insertion Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[6]))
+                else if(sortSTR.equals(sortOptionsNG[6]))
                 {
                     Runnable heapRunnable = new HeapSort(toBeSorted,false);
                     sorts.add(new Thread(heapRunnable, "Heap Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[7]))
+                else if(sortSTR.equals(sortOptionsNG[7]))
                 {
                     Runnable insertionRunnable = new InsertionSort(toBeSorted,false);
                     sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[8]))
+                else if(sortSTR.equals(sortOptionsNG[8]))
                 {
                     Runnable mergeRunnable = new MergeSort(toBeSorted,false);
                     sorts.add(new Thread(mergeRunnable, "Merge Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[9]))
+                else if(sortSTR.equals(sortOptionsNG[9]))
                 {
                     Runnable oddEvenRunnable = new OddEvenSort(toBeSorted,false);
                     sorts.add(new Thread(oddEvenRunnable, "Odd-Even Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[10]))
+                else if(sortSTR.equals(sortOptionsNG[10]))
                 {
                     Runnable quickRunnable = new QuickSort(toBeSorted,false);
                     sorts.add(new Thread(quickRunnable, "Quick Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[11]))
+                else if(sortSTR.equals(sortOptionsNG[11]))
                 {
                     Runnable radixRunnable = new RadixSort(toBeSorted, getNumDigits(toBeSorted.length),false);
                     sorts.add(new Thread(radixRunnable, "Radix Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[12]))
+                else if(sortSTR.equals(sortOptionsNG[12]))
                 {
                     Runnable selectionRunnable = new SelectionSort(toBeSorted,false);
                     sorts.add(new Thread(selectionRunnable, "Selection Sort"));
                 }
-                if(sortSTR.equals(sortOptionsNG[13]))
+                else if(sortSTR.equals(sortOptionsNG[13]))
                 {
                     Runnable shellRunnable = new ShellSort(toBeSorted,false);
                     sorts.add(new Thread(shellRunnable, "Shell Sort"));
+                }
+                else
+                {
+                    System.out.println("Error finding " + sortSTR);
                 }
             }
         }

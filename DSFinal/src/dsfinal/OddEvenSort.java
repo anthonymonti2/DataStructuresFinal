@@ -46,7 +46,6 @@ public class OddEvenSort extends SortingUtils {
     public void run()
     {
         super.run();
-        System.out.println(super.toString());
 
     }
     
