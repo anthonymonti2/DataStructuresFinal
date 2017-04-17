@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class CombSort extends SortingUtils
 {
-    public CombSort(int[] array)
+    public CombSort(int[] array, boolean isGraphic)
     {
-        super(array, "Comb Sort");
+        super(array, "Comb Sort", isGraphic);
     }
     
     public void sort()
@@ -49,5 +49,10 @@ public class CombSort extends SortingUtils
     public void run()
     {
         super.run();
+    }
+    
+    public void stepSort()
+    {
+        
     }
 }

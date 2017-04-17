@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class InsertionSort extends SortingUtils{
     
-    public InsertionSort(int[] array)
+    public InsertionSort(int[] array, boolean isGraphic)
     {
-        super(array, "Insertion Sort");
+        super(array, "Insertion Sort", isGraphic);
     }
     
     @Override
@@ -34,6 +34,11 @@ public class InsertionSort extends SortingUtils{
     public void run()
     {
         super.run();
+    }
+    
+    public void stepSort()
+    {
+        
     }
     
 }

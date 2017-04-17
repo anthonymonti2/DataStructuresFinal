@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class GnomeInsertionSort extends SortingUtils {
     
-    public GnomeInsertionSort(int[] array)
+    public GnomeInsertionSort(int[] array, boolean isGraphic)
     {
-        super(array, "Gnome Insertion Sort");
+        super(array, "Gnome Insertion Sort",isGraphic);
     }
     
     public void sort()
@@ -39,6 +39,11 @@ public class GnomeInsertionSort extends SortingUtils {
     {
         super.run();
         //System.out.println(super.toString());
+    }
+    
+    public void stepSort()
+    {
+        
     }
     
 }

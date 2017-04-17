@@ -8,6 +8,7 @@ package dsfinal;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -55,6 +56,7 @@ public class main {
     private static int delay = 1000;
     final static int DELAY_MIN = 0;
     final static int DELAY_MAX = 2000;
+    private static ArrayList<Thread> sorts = new ArrayList<>();
     
     public static void main(String[] args)
     {
@@ -85,6 +87,21 @@ public class main {
         {
             public void actionPerformed(ActionEvent evt)
             {
+                if(sortPanel.graphical == false)
+                {
+                    while(!sorts.isEmpty())
+                    {
+                        for(int i = 0; i < sorts.size();i++)
+                        {
+                            if(!sorts.get(i).isAlive())
+                            {
+                                sorts.remove(i);
+                            }
+                        }
+                    }
+                    stopTimer();
+                }
+                
                 sortPanel.update();
                 sortPanel.repaint();
                 if(sortPanel.doneSorting)
@@ -110,7 +127,9 @@ public class main {
         
         for(int i = 1; i < sortOptionsNG.length; i++)
         {
-            nonGraphical.add(new JCheckBox(sortOptionsNG[i]));
+            JCheckBox cb = new JCheckBox(sortOptionsNG[i]);
+            cb.addActionListener(e -> setUpNG(e));
+            nonGraphical.add(cb);
             
         }
         
@@ -204,6 +223,15 @@ public class main {
         start.setEnabled(false);
         stop.setEnabled(true);
         next.setEnabled(false);
+        
+        if(sortPanel.graphical == false)
+        {
+            sorts.forEach((t) -> {
+            t.start();
+            });
+            
+            System.out.println("Starting Non Graphical Sorting");
+        }
     }
     
     public static void stopTimer()
@@ -216,10 +244,11 @@ public class main {
     
     public static void setUpGraphical(ActionEvent e)
     {
+        sortPanel.graphical = true;
         JRadioButton source = (JRadioButton)(e.getSource());
         String sortSTR = source.getText();
         
-        int[] toBeSorted = generateArray(0, 30);
+        int[] toBeSorted = generateArray(2, 30);
         
         if(sortSTR.equals(sortOptionsG[1]))
         {
@@ -237,16 +266,85 @@ public class main {
         timer.stop();
     }
     
-    public static int getIndex(ActionEvent e)
+    public static void setUpNG(ActionEvent e)
     {
+        stopTimer();
+        sortPanel.graphical = false;
         JCheckBox source = (JCheckBox)(e.getSource());
+        String sortSTR = source.getText();
+        System.out.println(source.getText());
+        sorts.clear();
         
-        if(source.isSelected())
+        int[] toBeSorted = generateArray(0, 10000);
+        
+        if(sortSTR.equals(sortOptionsNG[1]))
         {
-           
+            Runnable bubbleRunnable = new BubbleSort(toBeSorted,false);
+            sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
         }
-        return 0;
-    }
+        if(sortSTR.equals(sortOptionsNG[2]))
+        {
+            Runnable cocktailShakerRunnable = new CocktailShakerSort(toBeSorted,false);
+            sorts.add(new Thread (cocktailShakerRunnable, "Cocktail Shaker Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[3]))
+        {
+            Runnable combRunnable = new CombSort(toBeSorted,false);
+            sorts.add(new Thread(combRunnable, "Comb Sort")); 
+        }
+        if(sortSTR.equals(sortOptionsNG[4]))
+        {
+            Runnable gnomeBubbleRunnable = new GnomeBubbleSort(toBeSorted,false);
+            sorts.add(new Thread(gnomeBubbleRunnable, "Gnome Bubble Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[5]))
+        {
+            Runnable gnomeInsertionRunnable = new GnomeInsertionSort(toBeSorted,false);
+            sorts.add(new Thread(gnomeInsertionRunnable, "Gnome Insertion Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[6]))
+        {
+            Runnable heapRunnable = new HeapSort(toBeSorted,false);
+            sorts.add(new Thread(heapRunnable, "Heap Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[7]))
+        {
+            Runnable insertionRunnable = new InsertionSort(toBeSorted,false);
+            sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[8]))
+        {
+            Runnable mergeRunnable = new MergeSort(toBeSorted,false);
+            sorts.add(new Thread(mergeRunnable, "Merge Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[9]))
+        {
+            Runnable oddEvenRunnable = new OddEvenSort(toBeSorted,false);
+            sorts.add(new Thread(oddEvenRunnable, "Odd-Even Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[10]))
+        {
+            Runnable quickRunnable = new QuickSort(toBeSorted,false);
+            sorts.add(new Thread(quickRunnable, "Quick Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[11]))
+        {
+            Runnable radixRunnable = new RadixSort(toBeSorted, getNumDigits(toBeSorted.length),false);
+            sorts.add(new Thread(radixRunnable, "Radix Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[12]))
+        {
+            Runnable selectionRunnable = new SelectionSort(toBeSorted,false);
+            sorts.add(new Thread(selectionRunnable, "Selection Sort"));
+        }
+        if(sortSTR.equals(sortOptionsNG[13]))
+        {
+            Runnable shellRunnable = new ShellSort(toBeSorted,false);
+            sorts.add(new Thread(shellRunnable, "Shell Sort"));
+        }
+        
+        delay = 0;
+        }
     
     public static int[] generateArray(int type, int max)
     {
@@ -255,7 +353,7 @@ public class main {
         {
             case 1: 
                 //random
-                System.out.println("\nGenerating random array of " + max + " integers");
+                //System.out.println("\nGenerating random array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
                     tBSort[i] = (int)(Math.random() * max);
@@ -263,7 +361,7 @@ public class main {
                 break;
             case 2:
                 //backwards
-                System.out.println("\nGenerating backwards array of " + max + " integers");
+                //System.out.println("\nGenerating backwards array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
                     tBSort[max-1-i] = i;
@@ -271,7 +369,7 @@ public class main {
                 break;
             case 3:
                 //almost sorted
-                System.out.println("\nGenerating almost sorted array of " + max + " integers");
+                //System.out.println("\nGenerating almost sorted array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
                     if(i < (int)(max * .75))
@@ -284,18 +382,20 @@ public class main {
                     }
                 }
                 break;
-            case 4:
-                //few unique
-                for(int i = 0; i < 5; i++)
-                {
-                    for(int q = 0; q < max/5; q++)
-                    {
-                        //doesn't work yet...
-                    }
-                }
-                break;
         }
         
         return tBSort;
+    }
+    
+    private static int getNumDigits(int num)
+    {
+        if(num == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1+ getNumDigits(num/10);
+        }
     }
 }

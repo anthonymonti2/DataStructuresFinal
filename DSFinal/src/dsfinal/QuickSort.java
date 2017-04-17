@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class QuickSort extends SortingUtils {
     
-    public QuickSort(int[] array)
+    public QuickSort(int[] array, boolean isGraphic)
     {
-        super(array, "Quick Sort");
+        super(array, "Quick Sort", isGraphic);
     }
     
     @Override
@@ -86,5 +86,10 @@ public class QuickSort extends SortingUtils {
     public void run()
     {
         super.run();
+    }
+    
+    public void stepSort()
+    {
+        
     }
 }

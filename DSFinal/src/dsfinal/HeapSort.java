@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class HeapSort extends SortingUtils {
     
-    public HeapSort(int[] array)
+    public HeapSort(int[] array, boolean isGraphic)
     {
-        super(array, "Heap Sort");
+        super(array, "Heap Sort", isGraphic);
     }
     
     @Override
@@ -89,6 +89,11 @@ public class HeapSort extends SortingUtils {
     public void run()
     {
         super.run();
+    }
+    
+    public void stepSort()
+    {
+        
     }
     
 }

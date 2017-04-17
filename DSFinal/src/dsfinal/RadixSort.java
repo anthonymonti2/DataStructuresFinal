@@ -14,9 +14,9 @@ public class RadixSort extends SortingUtils {
     
     private int digits = 0;
     
-    public RadixSort(int[] array, int numDigits)
+    public RadixSort(int[] array, int numDigits, boolean isGraphic)
     {
-        super(array, "Radix Sort");
+        super(array, "Radix Sort", isGraphic);
         digits = numDigits;
     }
    
@@ -122,5 +122,10 @@ public class RadixSort extends SortingUtils {
         }
         str += "\nNumber of swaps = " + swaps;
         return str;
+    }
+    
+    public void stepSort()
+    {
+        
     }
 }
