@@ -47,7 +47,8 @@ public class Panel extends JPanel {
         }
         else
         {
-            
+            g.setColor(Color.white);
+            g.fillRect(0, 0, WIDTH, HEIGHT);
         }
         
         Toolkit.getDefaultToolkit().sync(); //fixes studdering on linux systems
@@ -59,10 +60,6 @@ public class Panel extends JPanel {
         {
             sort.stepSort();
             checkSort(sort);
-        }
-        else
-        {
-            
         }
     }
     

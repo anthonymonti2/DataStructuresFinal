@@ -122,13 +122,15 @@ public class main {
         sortsMenu = new JMenu("Sorts");
         nonGraphical = new JMenu("Non-Graphical Sorting");
         graphical = new JMenu("Graphical Sorting");
+        sortListNG = new JCheckBox[sortOptionsNG.length];
         
         ButtonGroup bg = new ButtonGroup();
         
         for(int i = 1; i < sortOptionsNG.length; i++)
         {
             JCheckBox cb = new JCheckBox(sortOptionsNG[i]);
-            cb.addActionListener(e -> setUpNG(e));
+            //cb.addActionListener(e -> setUpNG());
+            sortListNG[i] = cb;
             nonGraphical.add(cb);
             
         }
@@ -224,13 +226,23 @@ public class main {
         stop.setEnabled(true);
         next.setEnabled(false);
         
-        if(sortPanel.graphical == false)
+        for(int i = 1; i < sortListNG.length; i++)
         {
-            sorts.forEach((t) -> {
-            t.start();
-            });
-            
-            System.out.println("Starting Non Graphical Sorting");
+            if(sortListNG[i].isSelected() == true)
+            {
+                setUpNG();
+                sorts.forEach((t) -> {
+                t.start();
+                });
+                
+                System.out.println("\fStarting Non Graphical Sorting\n");
+                
+                for(int q = 1; q < sortListNG.length; q++)
+                {
+                    sortListNG[q].setSelected(false);
+                }
+                break;
+            }
         }
     }
     
@@ -244,11 +256,12 @@ public class main {
     
     public static void setUpGraphical(ActionEvent e)
     {
+        delaySlider.setEnabled(true);
         sortPanel.graphical = true;
         JRadioButton source = (JRadioButton)(e.getSource());
         String sortSTR = source.getText();
         
-        int[] toBeSorted = generateArray(2, 30);
+        int[] toBeSorted = {0};
         
         if(sortSTR.equals(sortOptionsG[1]))
         {
@@ -266,86 +279,91 @@ public class main {
         timer.stop();
     }
     
-    public static void setUpNG(ActionEvent e)
+    public static void setUpNG()
     {
         stopTimer();
         sortPanel.graphical = false;
-        JCheckBox source = (JCheckBox)(e.getSource());
-        String sortSTR = source.getText();
-        System.out.println(source.getText());
-        sorts.clear();
-        
+        //JCheckBox source = (JCheckBox)(e.getSource());
         int[] toBeSorted = generateArray(0, 10000);
-        
-        if(sortSTR.equals(sortOptionsNG[1]))
+        sorts.clear();
+        sorts.ensureCapacity(sortListNG.length);
+        for(int i = 1; i < sortListNG.length; i++)
         {
-            Runnable bubbleRunnable = new BubbleSort(toBeSorted,false);
-            sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
+            if(sortListNG[i].isSelected())// sortListNG[i].&& sorts.size() == i-1 && sorts.get(i).getName().equals(sortListNG[i].getText() + " Sort") == false)
+            {
+                String sortSTR = sortListNG[i].getText();
+
+                if(sortSTR.equals(sortOptionsNG[1]))
+                {
+                    Runnable bubbleRunnable = new BubbleSort(toBeSorted,false);
+                    sorts.add(new Thread(bubbleRunnable, "Bubble Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[2]))
+                {
+                    Runnable cocktailShakerRunnable = new CocktailShakerSort(toBeSorted,false);
+                    sorts.add(new Thread (cocktailShakerRunnable, "Cocktail Shaker Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[3]))
+                {
+                    Runnable combRunnable = new CombSort(toBeSorted,false);
+                    sorts.add(new Thread(combRunnable, "Comb Sort")); 
+                }
+                if(sortSTR.equals(sortOptionsNG[4]))
+                {
+                    Runnable gnomeBubbleRunnable = new GnomeBubbleSort(toBeSorted,false);
+                    sorts.add(new Thread(gnomeBubbleRunnable, "Gnome Bubble Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[5]))
+                {
+                    Runnable gnomeInsertionRunnable = new GnomeInsertionSort(toBeSorted,false);
+                    sorts.add(new Thread(gnomeInsertionRunnable, "Gnome Insertion Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[6]))
+                {
+                    Runnable heapRunnable = new HeapSort(toBeSorted,false);
+                    sorts.add(new Thread(heapRunnable, "Heap Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[7]))
+                {
+                    Runnable insertionRunnable = new InsertionSort(toBeSorted,false);
+                    sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[8]))
+                {
+                    Runnable mergeRunnable = new MergeSort(toBeSorted,false);
+                    sorts.add(new Thread(mergeRunnable, "Merge Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[9]))
+                {
+                    Runnable oddEvenRunnable = new OddEvenSort(toBeSorted,false);
+                    sorts.add(new Thread(oddEvenRunnable, "Odd-Even Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[10]))
+                {
+                    Runnable quickRunnable = new QuickSort(toBeSorted,false);
+                    sorts.add(new Thread(quickRunnable, "Quick Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[11]))
+                {
+                    Runnable radixRunnable = new RadixSort(toBeSorted, getNumDigits(toBeSorted.length),false);
+                    sorts.add(new Thread(radixRunnable, "Radix Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[12]))
+                {
+                    Runnable selectionRunnable = new SelectionSort(toBeSorted,false);
+                    sorts.add(new Thread(selectionRunnable, "Selection Sort"));
+                }
+                if(sortSTR.equals(sortOptionsNG[13]))
+                {
+                    Runnable shellRunnable = new ShellSort(toBeSorted,false);
+                    sorts.add(new Thread(shellRunnable, "Shell Sort"));
+                }
+            }
         }
-        if(sortSTR.equals(sortOptionsNG[2]))
-        {
-            Runnable cocktailShakerRunnable = new CocktailShakerSort(toBeSorted,false);
-            sorts.add(new Thread (cocktailShakerRunnable, "Cocktail Shaker Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[3]))
-        {
-            Runnable combRunnable = new CombSort(toBeSorted,false);
-            sorts.add(new Thread(combRunnable, "Comb Sort")); 
-        }
-        if(sortSTR.equals(sortOptionsNG[4]))
-        {
-            Runnable gnomeBubbleRunnable = new GnomeBubbleSort(toBeSorted,false);
-            sorts.add(new Thread(gnomeBubbleRunnable, "Gnome Bubble Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[5]))
-        {
-            Runnable gnomeInsertionRunnable = new GnomeInsertionSort(toBeSorted,false);
-            sorts.add(new Thread(gnomeInsertionRunnable, "Gnome Insertion Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[6]))
-        {
-            Runnable heapRunnable = new HeapSort(toBeSorted,false);
-            sorts.add(new Thread(heapRunnable, "Heap Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[7]))
-        {
-            Runnable insertionRunnable = new InsertionSort(toBeSorted,false);
-            sorts.add(new Thread(insertionRunnable, "Insertion Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[8]))
-        {
-            Runnable mergeRunnable = new MergeSort(toBeSorted,false);
-            sorts.add(new Thread(mergeRunnable, "Merge Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[9]))
-        {
-            Runnable oddEvenRunnable = new OddEvenSort(toBeSorted,false);
-            sorts.add(new Thread(oddEvenRunnable, "Odd-Even Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[10]))
-        {
-            Runnable quickRunnable = new QuickSort(toBeSorted,false);
-            sorts.add(new Thread(quickRunnable, "Quick Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[11]))
-        {
-            Runnable radixRunnable = new RadixSort(toBeSorted, getNumDigits(toBeSorted.length),false);
-            sorts.add(new Thread(radixRunnable, "Radix Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[12]))
-        {
-            Runnable selectionRunnable = new SelectionSort(toBeSorted,false);
-            sorts.add(new Thread(selectionRunnable, "Selection Sort"));
-        }
-        if(sortSTR.equals(sortOptionsNG[13]))
-        {
-            Runnable shellRunnable = new ShellSort(toBeSorted,false);
-            sorts.add(new Thread(shellRunnable, "Shell Sort"));
-        }
-        
+
         delay = 0;
-        }
-    
+        delaySlider.setEnabled(false);
+    }
     public static int[] generateArray(int type, int max)
     {
         int[] tBSort = new int[max];
