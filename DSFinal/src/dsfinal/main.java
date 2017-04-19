@@ -125,7 +125,6 @@ public class main {
         for(int i = 1; i < sortOptionsNG.length; i++)
         {
             JCheckBox cb = new JCheckBox(sortOptionsNG[i]);
-            //cb.addActionListener(e -> setUpNG());
             sortListNG[i] = cb;
             nonGraphical.add(cb);
             
@@ -227,7 +226,7 @@ public class main {
                 {
                     try
                     {
-                        lengthOfSortList = Integer.valueOf(response);
+                        lengthOfSortList = Math.abs(Integer.valueOf(response));
                         setUpNG();
                         break;
                     }
@@ -304,22 +303,27 @@ public class main {
         int typeofSort = 0;
         
         String response = JOptionPane.showInputDialog("Please enter the type of array you want to sort\n1.)Random\n2.)Backwards\n3.)Almost Sorted\n");
-                while(true)
+            while(true)
+            {
+                try
                 {
-                    try
+                    while(true)
                     {
                         typeofSort = Integer.valueOf(response);
                         if(typeofSort == 1 || typeofSort == 2 ||typeofSort == 3)
                         {
                             break;
                         }
-                    }
-                    catch(Exception e)   
-                    {
                         response = JOptionPane.showInputDialog("Please enter the type of array you want to sort\n1.)Random\n2.)Backwards\n3.)Almost Sorted\n");
-
                     }
+                    break;
                 }
+                catch(Exception e)   
+                {
+                    response = JOptionPane.showInputDialog("Please enter the type of array you want to sort\n1.)Random\n2.)Backwards\n3.)Almost Sorted\n");
+
+                }
+            }
         
         
         int[] toBeSorted = generateArray(typeofSort, 10000);
@@ -327,7 +331,7 @@ public class main {
         sorts.ensureCapacity(sortListNG.length);
         for(int i = 1; i < sortListNG.length; i++)
         {
-            if(sortListNG[i].isSelected())// sortListNG[i].&& sorts.size() == i-1 && sorts.get(i).getName().equals(sortListNG[i].getText() + " Sort") == false)
+            if(sortListNG[i].isSelected())
             {
                 String sortSTR = sortListNG[i].getText();
 
