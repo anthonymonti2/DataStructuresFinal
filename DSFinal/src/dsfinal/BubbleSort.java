@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class BubbleSort extends SortingUtils {
     
-    public BubbleSort(int[] array)
+    public BubbleSort(int[] array, boolean isGraphic)
     {
-        super(array,"Bubble Sort");
+        super(array,"Bubble Sort",isGraphic);
     }
     
     @Override 
@@ -34,6 +34,10 @@ public class BubbleSort extends SortingUtils {
     public void run()
     {
         super.run();
+    }
+    
+    public void stepSort()
+    {
     }
     
 }

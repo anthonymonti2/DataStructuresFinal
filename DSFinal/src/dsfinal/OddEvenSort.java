@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class OddEvenSort extends SortingUtils {
     
-    public OddEvenSort(int[] array)
+    public OddEvenSort(int[] array, boolean isGraphic)
     {
-        super(array, "Odd-Even Sort");
+        super(array, "Odd-Even Sort", isGraphic);
     }
     
     public void sort()
@@ -46,8 +46,12 @@ public class OddEvenSort extends SortingUtils {
     public void run()
     {
         super.run();
-        System.out.println(super.toString());
 
+    }
+    
+    public void stepSort()
+    {
+        
     }
     
 }

@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class MergeSort extends SortingUtils {
     
-    public MergeSort(int[] array)
+    public MergeSort(int[] array, boolean isGraphic)
     {
-        super(array, "Merge Sort");
+        super(array, "Merge Sort", isGraphic);
     }
     
     @Override
@@ -59,6 +59,11 @@ public class MergeSort extends SortingUtils {
     public void run()
     {
         super.run();
+    }
+    
+    public void stepSort()
+    {
+        
     }
     
 }

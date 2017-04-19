@@ -14,10 +14,14 @@ public class RadixSort extends SortingUtils {
     
     private int digits = 0;
     
-    public RadixSort(int[] array, int numDigits)
+    public RadixSort(int[] array, int numDigits, boolean isGraphic)
     {
-        super(array, "Radix Sort");
+        super(array, "Radix Sort", isGraphic);
         digits = numDigits;
+        
+        if(isGraphic)
+        {
+        }
     }
    
     public void sort()
@@ -31,7 +35,7 @@ public class RadixSort extends SortingUtils {
         //toString();
     }
     
-    public static void main(String[] args)
+    public void main(String[] args)
     {
         int[] temp = new int[50];
         
@@ -48,13 +52,7 @@ public class RadixSort extends SortingUtils {
     }
     
     //additional methods required to run
-    /**
-     * 
-     * @param number
-     * @param k
-     * @return the digit of a number at k. if not 0
-     */
-    private static int getDigit(int number, int numDig)
+    private int getDigit(int number, int numDig)
     {
         if(numDig > number)
         {
@@ -66,13 +64,13 @@ public class RadixSort extends SortingUtils {
         return number%10;
     }
     
-    private static Queue[] itemsToQueue(int[] nums, int numDig)
+    private Queue[] itemsToQueue(int[] nums, int numDig)
     {
         Queue<Integer>[] storageQueue = new Queue[10];
         
         for(int i = 0; i < storageQueue.length; i++)
         {
-            storageQueue[i] = new LinkedList<Integer>();
+            storageQueue[i] = new LinkedList<>();
         }
         
         for(int i = 0; i < nums.length; i++)
@@ -84,16 +82,14 @@ public class RadixSort extends SortingUtils {
         return storageQueue;
     }
     
-    private static int[] queuesToArray(Queue<Integer>[] ques, int numVals)
+    private int[] queuesToArray(Queue<Integer>[] ques, int numVals)
     {
         int[] temp = new int[numVals];
         int counter = 0;
         
-        for(int i = 0; i < ques.length; i++)
-        {
-            while(ques[i].isEmpty() == false)
-            {
-                temp[counter] = ques[i].remove();
+        for (Queue<Integer> que : ques) {
+            while (que.isEmpty() == false) {
+                temp[counter] = que.remove();
                 counter += 1;
             }
         }
@@ -101,7 +97,7 @@ public class RadixSort extends SortingUtils {
         return temp;
     }
     
-    private static int[] sort(int[] nums,int numDigits)
+    private int[] sort(int[] nums,int numDigits)
     {
         int length = nums.length;
         
@@ -122,5 +118,9 @@ public class RadixSort extends SortingUtils {
         }
         str += "\nNumber of swaps = " + swaps;
         return str;
+    }
+    
+    public void stepSort()
+    {
     }
 }

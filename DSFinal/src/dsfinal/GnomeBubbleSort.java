@@ -11,9 +11,9 @@ package dsfinal;
  */
 public class GnomeBubbleSort extends SortingUtils {
     
-    public GnomeBubbleSort(int[] array)
+    public GnomeBubbleSort(int[] array, boolean isGraphic)
     {
-        super(array, "Gnome Bubble Sort");
+        super(array, "Gnome Bubble Sort", isGraphic);
     }
     
     public void sort()
@@ -38,6 +38,11 @@ public class GnomeBubbleSort extends SortingUtils {
     {
         super.run();
         //System.out.println(super.toString());
+    }
+    
+    public void stepSort()
+    {
+        
     }
     
 }
