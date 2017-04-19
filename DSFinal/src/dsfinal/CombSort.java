@@ -19,6 +19,7 @@ public class CombSort extends SortingUtils
     final double shrink = 1.3;
     protected boolean finishedLoop;
     protected int qNum;
+    protected int numZero;
     
     public CombSort(int[] array, boolean isGraphic)
     {
@@ -27,9 +28,11 @@ public class CombSort extends SortingUtils
         if(isGraphic)
         {
             gapNum = blockArray.length;
+            gapNum = (int)(gapNum/shrink);
             sortedBol = false;
             iNum = 0;
             qNum = 0;
+            numZero = 0;
             finishedLoop = false;
         }
     }
@@ -69,21 +72,18 @@ public class CombSort extends SortingUtils
     }
     
     public void stepSort()
-    {
-        if(sortedBol == false && iNum <= blockArray.length)
+    {       
+        if(gapNum > -1)
         {
             for(int i = 0; i < blockArray.length; i++)
             {
                 blockArray[i].color = Color.green;
             }
             
-            
-            
             if(iNum + gapNum < blockArray.length)
             {
                 blockArray[iNum].color = Color.RED;
                 blockArray[iNum+gapNum].color = Color.RED;
-                System.out.println("I " + iNum);
                 
                 if(blockArray[iNum].value > blockArray[iNum+gapNum].value)
                 {
@@ -97,8 +97,23 @@ public class CombSort extends SortingUtils
             else
             {
                 iNum = 0;
-                finishedLoop = true;
+                gapNum = (int)(gapNum/shrink);
+                
+                if(gapNum == 0)
+                {
+                    gapNum = 1;
+                    numZero++;
+                }
+                if(numZero > 1)
+                {
+                    gapNum = -1;
+                    sortedBol = true;
+                }
+                
             }
+            
+            
+            
             
         }
         else
@@ -106,7 +121,9 @@ public class CombSort extends SortingUtils
             if(qNum < blockArray.length)
             {
                 blockArray[qNum].color = Color.ORANGE;
+                //blockArray[qNum].isSorted = true;
                 qNum++;
+                
             }
         }
     }

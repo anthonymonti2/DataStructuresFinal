@@ -43,15 +43,8 @@ public class main {
     private static JMenu sortsMenu;
     private static JMenu nonGraphical;
     private static JMenu graphical;
-    //private static JCheckBox[] sortListNGSimple;
-    //private static JCheckBox[] sortListNGComplex;
-    private static ButtonGroup sortListG;
     private static JCheckBox[] sortListNG;
     private static JSlider delaySlider;
-    
-    private static String sortListNGSimpleString;
-    private static String sortListNGComplexString;
-    private static String sortListGString;
     
     private static Timer timer;
     private static int delay = 500;
@@ -209,7 +202,7 @@ public class main {
                     else
                         if(!timer.isRunning())
                             startTimer();
-                        timer.setDelay(newDelay);
+                            timer.setDelay(newDelay);
                 } 
             }
         });
@@ -291,11 +284,11 @@ public class main {
         {
             sortPanel.sort = new CombSort(toBeSorted,true);
         }
-        else if(sortSTR.equals(sortOptionsG[3]))
+        else if(sortSTR.equals(sortOptionsG[4]))
         {
             sortPanel.sort = new ShellSort(toBeSorted,true);
         }
-        else if(sortSTR.equals(sortOptionsG[4]))
+        else if(sortSTR.equals(sortOptionsG[3]))
         {
             sortPanel.sort = new SelectionSort(toBeSorted,true);
         }
@@ -307,8 +300,29 @@ public class main {
     {
         stopTimer();
         sortPanel.graphical = false;
-        //JCheckBox source = (JCheckBox)(e.getSource());
-        int[] toBeSorted = generateArray(0, 10000);
+        
+        int typeofSort = 0;
+        
+        String response = JOptionPane.showInputDialog("Please enter the type of array you want to sort\n1.)Random\n2.)Backwards\n3.)Almost Sorted\n");
+                while(true)
+                {
+                    try
+                    {
+                        typeofSort = Integer.valueOf(response);
+                        if(typeofSort == 1 || typeofSort == 2 ||typeofSort == 3)
+                        {
+                            break;
+                        }
+                    }
+                    catch(Exception e)   
+                    {
+                        response = JOptionPane.showInputDialog("Please enter the type of array you want to sort\n1.)Random\n2.)Backwards\n3.)Almost Sorted\n");
+
+                    }
+                }
+        
+        
+        int[] toBeSorted = generateArray(typeofSort, 10000);
         sorts.clear();
         sorts.ensureCapacity(sortListNG.length);
         for(int i = 1; i < sortListNG.length; i++)
@@ -399,7 +413,6 @@ public class main {
         {
             case 1: 
                 //random
-                //System.out.println("\nGenerating random array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
                     tBSort[i] = (int)(Math.random() * max);
@@ -407,7 +420,6 @@ public class main {
                 break;
             case 2:
                 //backwards
-                //System.out.println("\nGenerating backwards array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
                     tBSort[max-1-i] = i;
@@ -415,7 +427,6 @@ public class main {
                 break;
             case 3:
                 //almost sorted
-                //System.out.println("\nGenerating almost sorted array of " + max + " integers");
                 for(int i = 0; i < max; i++)
                 {
                     if(i < (int)(max * .75))

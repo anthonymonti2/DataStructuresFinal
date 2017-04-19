@@ -98,18 +98,7 @@ public class CocktailShakerSort extends SortingUtils{
                 }
                 iNum++;
             }
-            
-            /*
-            if(iNum >= blockArray.length -2)
-            {
-                if(swappedBol == false)
-                {
-                    running = false;
-                }
-            }*/
-            
-            
-
+         
             if(iNum >= blockArray.length - 2-loops)
             {
                 if(iNumTwo <= blockArray.length - 2)
